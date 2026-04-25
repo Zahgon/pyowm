@@ -73,7 +73,7 @@ class MetaImage:
         :returns: an int or a str
 
         """
-        return formatting.timeformat(self._acquisition_time, timeformat)
+        pass
 
     def __repr__(self):
         return "<%s.%s - %s %s image acquired at %s by %s on polygon with id=%s>" % (
@@ -142,7 +142,7 @@ class SatelliteImage:
         :returns: an int or a str
 
         """
-        return formatting.timeformat(self._downloaded_on, timeformat)
+        pass
 
     def persist(self, path_to_file):
         """
@@ -152,7 +152,7 @@ class SatelliteImage:
         :type path_to_file: str
         :return: `None`
         """
-        self.data.persist(path_to_file)
+        pass
 
     def __repr__(self):
         return "<%s.%s - %s %s satellite image downloaded on: %s>" % (

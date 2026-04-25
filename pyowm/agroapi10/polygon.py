@@ -46,9 +46,7 @@ class Polygon:
 
     @property
     def area_km(self):
-        if self.area:
-            return self.area * 0.01
-        return None
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

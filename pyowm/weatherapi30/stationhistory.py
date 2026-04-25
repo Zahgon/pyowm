@@ -49,7 +49,7 @@ class StationHistory:
         :raises: ValueError
 
         """
-        return formatting.timeformat(self.rec_time, timeformat)
+        pass
 
     @classmethod
     def from_dict(cls, d):

@@ -66,16 +66,7 @@ class JSONPersistenceBackend(PersistenceBackend):
         self._file_path = json_file_path
 
     def load_to_buffer(self):
-        if self._station_id is None:
-            raise ValueError('No station ID specified')
-        result = Buffer(self._station_id)
-        with open(self._file_path, 'r') as f:
-            list_of_dicts = json.load(f)
-            for _dict in list_of_dicts:
-                result.append_from_dict(_dict)
-            return result
+        pass
 
     def persist_buffer(self, buffer):
-        with open(self._file_path, 'w') as f:
-            data = [msmt.to_JSON() for msmt in buffer]
-            f.write('[%s]' % ','.join(data))
+        pass

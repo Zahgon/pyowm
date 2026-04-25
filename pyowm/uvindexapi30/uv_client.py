@@ -24,19 +24,7 @@ class UltraVioletHttpClient:
         self._client = httpclient
 
     def _trim_to(self, date_object, interval):
-        if interval == 'minute':
-            return date_object.strftime('%Y-%m-%dT%H:%MZ')
-        elif interval == 'hour':
-            return date_object.strftime('%Y-%m-%dT%HZ')
-        elif interval == 'day':
-            return date_object.strftime('%Y-%m-%dZ')
-        elif interval == 'month':
-            return date_object.strftime('%Y-%mZ')
-        elif interval == 'year':
-            return date_object.strftime('%YZ')
-        else:
-            raise ValueError("The interval provided for UVIndex search "
-                             "window is invalid")
+        pass
 
     def get_uvi(self, params_dict):
         """
@@ -47,13 +35,7 @@ class UltraVioletHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        lat = str(params_dict['lat'])
-        lon = str(params_dict['lon'])
-        params = dict(lat=lat, lon=lon)
-
-        # build request URL
-        _, json_data = self._client.get_json(UV_INDEX_URL, params=params)
-        return json_data
+        pass
 
     def get_uvi_forecast(self, params_dict):
         """
@@ -64,13 +46,7 @@ class UltraVioletHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        lat = str(params_dict['lat'])
-        lon = str(params_dict['lon'])
-        params = dict(lat=lat, lon=lon)
-
-        # build request URL
-        _, json_data = self._client.get_json(UV_INDEX_FORECAST_URL, params=params)
-        return json_data
+        pass
 
     def get_uvi_history(self, params_dict):
         """
@@ -81,15 +57,7 @@ class UltraVioletHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        lat = str(params_dict['lat'])
-        lon = str(params_dict['lon'])
-        start = str(params_dict['start'])
-        end = str(params_dict['end'])
-        params = dict(lat=lat, lon=lon, start=start, end=end)
-
-        # build request URL
-        _, json_data = self._client.get_json(UV_INDEX_HISTORY_URL, params=params)
-        return json_data
+        pass
 
     def __repr__(self):
         return "<%s.%s - httpclient=%s>" % \

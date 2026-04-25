@@ -31,7 +31,7 @@ def next_hour(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_hours(1, date)
+    pass
 
 
 def last_hour(date=None):
@@ -44,7 +44,7 @@ def last_hour(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_hours(-1, date)
+    pass
 
 
 def next_three_hours(date=None):
@@ -57,7 +57,7 @@ def next_three_hours(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_hours(3, date)
+    pass
 
 
 def last_three_hours(date=None):
@@ -70,7 +70,7 @@ def last_three_hours(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_hours(-3, date)
+    pass
 
 
 def tomorrow(hour=None, minute=None):
@@ -120,14 +120,7 @@ def yesterday(hour=None, minute=None):
     :returns: a ``datetime.datetime`` object
     :raises: *ValueError* when hour or minute have bad values
     """
-    now = datetime.now(timezone.utc)
-    if hour is None:
-        hour = now.hour
-    if minute is None:
-        minute = now.minute
-    yesterday_date = now.date() + timedelta(days=-1)
-    return datetime(yesterday_date.year, yesterday_date.month,
-                    yesterday_date.day, hour, minute, 0, 0, timezone.utc)
+    pass
 
 
 def next_week(date=None):
@@ -141,7 +134,7 @@ def next_week(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_days(7, date)
+    pass
 
 
 def last_week(date=None):
@@ -155,7 +148,7 @@ def last_week(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_days(-7, date)
+    pass
 
 
 def last_month(date=None):
@@ -169,7 +162,7 @@ def last_month(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_months(-1, date)
+    pass
 
 
 def next_month(date=None):
@@ -183,7 +176,7 @@ def next_month(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_months(1, date)
+    pass
 
 
 def last_year(date=None):
@@ -197,7 +190,7 @@ def last_year(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_years(-1, date)
+    pass
 
 
 def next_year(date=None):
@@ -211,39 +204,23 @@ def next_year(date=None):
     :type date: ``datetime.datetime`` object
     :returns: a ``datetime.datetime`` object
     """
-    return _timedelta_years(1, date)
+    pass
 
 
 def _timedelta_hours(offset, date=None):
-    if date is None:
-        return datetime.now(timezone.utc) + timedelta(hours=offset)
-    assert isinstance(date, datetime), __name__ + \
-        ": 'date' must be a datetime.datetime object"
-    return date + timedelta(hours=offset)
+    pass
 
 
 def _timedelta_days(offset, date=None):
-    if date is None:
-        return datetime.now(timezone.utc) + timedelta(days=offset)
-    assert isinstance(date, datetime), __name__ + \
-        ": 'date' must be a datetime.datetime object"
-    return date + timedelta(days=offset)
+    pass
 
 
 def _timedelta_months(offset, date=None):
-    if date is None:
-        return datetime.now(timezone.utc) + timedelta(days=offset * 30)
-    assert isinstance(date, datetime), __name__ + \
-        ": 'date' must be a datetime.datetime object"
-    return date + timedelta(days=offset * 30)
+    pass
 
 
 def _timedelta_years(offset, date=None):
-    if date is None:
-        return datetime.now(timezone.utc) + timedelta(days=offset * 365)
-    assert isinstance(date, datetime), __name__ + \
-        ": 'date' must be a datetime.datetime object"
-    return date + timedelta(days=offset * 365)
+    pass
 
 
 def millis_offset_between_epochs(reference_epoch, target_epoch):
@@ -255,6 +232,4 @@ def millis_offset_between_epochs(reference_epoch, target_epoch):
     :type target_epoch: int
     :return: int
     """
-    assert isinstance(reference_epoch, int)
-    assert isinstance(target_epoch, int)
-    return (target_epoch - reference_epoch)*1000
+    pass

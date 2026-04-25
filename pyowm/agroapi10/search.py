@@ -146,7 +146,7 @@ class SatelliteImagerySearchResultSet:
         :returns: an int or a str
 
         """
-        return formatting.timeformat(self.query_timestamp, timeformat)
+        pass
 
     def __len__(self):
         return len(self.metaimages)
@@ -163,7 +163,7 @@ class SatelliteImagerySearchResultSet:
         :returns: a list of `pyowm.agroapi10.imagery.MetaImage` instances
 
         """
-        return self.metaimages
+        pass
 
     def with_img_type(self, image_type):
         """
@@ -175,8 +175,7 @@ class SatelliteImagerySearchResultSet:
         :returns: a list of `pyowm.agroapi10.imagery.MetaImage` instances
 
         """
-        assert isinstance(image_type, ImageType)
-        return list(filter(lambda x: x.image_type == image_type, self.metaimages))
+        pass
 
     def with_preset(self, preset):
         """
@@ -188,8 +187,7 @@ class SatelliteImagerySearchResultSet:
         :returns: a list of `pyowm.agroapi10.imagery.MetaImage` instances
 
         """
-        assert isinstance(preset, str)
-        return list(filter(lambda x: x.preset == preset, self.metaimages))
+        pass
 
     def with_img_type_and_preset(self, image_type, preset):
         """
@@ -204,6 +202,4 @@ class SatelliteImagerySearchResultSet:
         :returns: a list of `pyowm.agroapi10.imagery.MetaImage` instances
 
         """
-        assert isinstance(image_type, ImageType)
-        assert isinstance(preset, str)
-        return list(filter(lambda x: x.image_type == image_type and x.preset == preset, self.metaimages))
+        pass

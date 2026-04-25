@@ -39,10 +39,7 @@ def any_status_is(weather_list, status, weather_code_registry):
     :returns: ``True`` if the check is positive, ``False`` otherwise
     
     """
-    return any(
-        status_is(weather, status, weather_code_registry)
-        for weather in weather_list
-    )
+    pass
 
 
 def filter_by_status(weather_list, status, weather_code_registry):
@@ -60,11 +57,7 @@ def filter_by_status(weather_list, status, weather_code_registry):
     :returns: ``True`` if the check is positive, ``False`` otherwise
     
     """
-    return [
-        weather
-        for weather in weather_list
-        if status_is(weather, status, weather_code_registry)
-    ]
+    pass
 
 
 def is_in_coverage(unixtime, weathers_list):

@@ -44,7 +44,7 @@ class OWM:
         :returns: `dict`
 
         """
-        return self.config
+        pass
 
     @property
     def version(self):
@@ -64,7 +64,7 @@ class OWM:
         :return: `list` of `str`
 
         """
-        return constants.LANGUAGES
+        pass
 
     def agro_manager(self):
         """
@@ -95,7 +95,7 @@ class OWM:
 
         :returns: a *CityIDRegistry* instance
         """
-        return cityidregistry.CityIDRegistry.get_instance()
+        pass
 
     def stations_manager(self):
         """

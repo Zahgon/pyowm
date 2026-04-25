@@ -65,14 +65,7 @@ class Soil:
         :raises: ValueError when unknown temperature units are provided
 
         """
-        if unit == 'kelvin':
-            return self._surface_temp
-        if unit == 'celsius':
-            return measurables.kelvin_to_celsius(self._surface_temp)
-        if unit == 'fahrenheit':
-            return measurables.kelvin_to_fahrenheit(self._surface_temp)
-        else:
-            raise ValueError('Wrong temperature unit')
+        pass
 
     def ten_cm_temp(self, unit='kelvin'):
         """Returns the soil temperature measured 10 cm below surface
@@ -84,14 +77,7 @@ class Soil:
         :raises: ValueError when unknown temperature units are provided
 
         """
-        if unit == 'kelvin':
-            return self._ten_cm_temp
-        if unit == 'celsius':
-            return measurables.kelvin_to_celsius(self._ten_cm_temp)
-        if unit == 'fahrenheit':
-            return measurables.kelvin_to_fahrenheit(self._ten_cm_temp)
-        else:
-            raise ValueError('Wrong temperature unit')
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

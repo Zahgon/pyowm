@@ -34,7 +34,7 @@ class AirPollutionManager:
             HttpClient(API_key, config, NEW_ROOT_POLLUTION_API_URL))
 
     def airpollution_api_version(self):
-        return AIRPOLLUTION_API_VERSION
+        pass
 
     @decorators.deprecated('removed', '4', 'coindex_around_coords')
     def coindex_around_coords(self, lat, lon, start=None, interval=None):
@@ -66,15 +66,7 @@ class AirPollutionManager:
             cannot be parsed, *APICallException* when OWM AirPollution API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat, 'start': start, 'interval': interval}
-        json_data = self.ap_client.get_coi(params)
-        coi = coindex.COIndex.from_dict(json_data)
-        if interval is None:
-            interval = 'year'
-        coi.interval = interval
-        return coi
+        pass
 
     @decorators.deprecated('removed', '4', 'ozone_around_coords')
     def ozone_around_coords(self, lat, lon, start=None, interval=None):
@@ -105,15 +97,7 @@ class AirPollutionManager:
             cannot be parsed, *APICallException* when OWM AirPollution API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat, 'start': start, 'interval': interval}
-        json_data = self.ap_client.get_o3(params)
-        oz = ozone.Ozone.from_dict(json_data)
-        if interval is None:
-            interval = 'year'
-        oz.interval = interval
-        return oz
+        pass
 
     @decorators.deprecated('removed', '4', 'no2index_around_coords')
     def no2index_around_coords(self, lat, lon, start=None, interval=None):
@@ -145,15 +129,7 @@ class AirPollutionManager:
             cannot be parsed, *APICallException* when OWM AirPollution API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat, 'start': start, 'interval': interval}
-        json_data = self.ap_client.get_no2(params)
-        no2 = no2index.NO2Index.from_dict(json_data)
-        if interval is None:
-            interval = 'year'
-        no2.interval = interval
-        return no2
+        pass
 
     @decorators.deprecated('removed', '4', 'so2index_around_coords')
     def so2index_around_coords(self, lat, lon, start=None, interval=None):
@@ -185,15 +161,7 @@ class AirPollutionManager:
             cannot be parsed, *APICallException* when OWM AirPollution API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat, 'start': start, 'interval': interval}
-        json_data = self.ap_client.get_so2(params)
-        so2 = so2index.SO2Index.from_dict(json_data)
-        if interval is None:
-            interval = 'year'
-        so2.interval = interval
-        return so2
+        pass
 
     def air_quality_at_coords(self, lat, lon):
         """
@@ -208,14 +176,7 @@ class AirPollutionManager:
             cannot be parsed, *APICallException* when OWM AirPollution API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat}
-        json_data = self.new_ap_client.get_air_pollution(params)
-        try:
-            return airstatus.AirStatus.from_dict(json_data)
-        except:
-            return None
+        pass
 
     def air_quality_forecast_at_coords(self, lat, lon):
         """
@@ -230,14 +191,7 @@ class AirPollutionManager:
             cannot be parsed, *APICallException* when OWM AirPollution API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat}
-        json_data = self.new_ap_client.get_forecast_air_pollution(params)
-        try:
-            return airstatus.AirStatus.from_dict(json_data)
-        except:
-            return []
+        pass
 
     def air_quality_history_at_coords(self, lat, lon, start, end=None):
         """
@@ -257,24 +211,7 @@ class AirPollutionManager:
             cannot be parsed, *APICallException* when OWM AirPollution API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        now = timestamps.now(timeformat='unix')
-        assert start is not None
-        start = formatting.timeformat(start, 'unix')
-        if end is None:
-            end = now
-        else:
-            end = formatting.timeformat(end, 'unix')
-            if end > now:
-                end = now
-
-        params = {'lon': lon, 'lat': lat, 'start': start, 'end': end}
-        json_data = self.new_ap_client.get_historical_air_pollution(params)
-        try:
-            return airstatus.AirStatus.from_dict(json_data)
-        except:
-            return []
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)

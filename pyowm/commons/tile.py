@@ -41,7 +41,7 @@ class Tile:
         :type path_to_file: str
         :return: `None`
         """
-        self.image.persist(path_to_file)
+        pass
 
     def bounding_polygon(self):
         """
@@ -49,12 +49,7 @@ class Tile:
 
         :return: `pywom.utils.geo.Polygon` instance
         """
-        lon_left, lat_bottom, lon_right, lat_top = Tile.tile_coords_to_bbox(self.x, self.y, self.zoom)
-        return Polygon([[[lon_left, lat_top],
-                       [lon_right, lat_top],
-                       [lon_right, lat_bottom],
-                       [lon_left, lat_bottom],
-                       [lon_left, lat_top]]])
+        pass
 
     @classmethod
     def tile_coords_for_point(cls, geopoint, zoom):
@@ -67,7 +62,7 @@ class Tile:
         :type zoom: int
         :return: a tuple (x, y) containing the tile-coordinates
         """
-        return Tile.geoocoords_to_tile_coords(geopoint.lon, geopoint.lat, zoom)
+        pass
 
     @classmethod
     def geoocoords_to_tile_coords(cls, lon, lat, zoom):
@@ -83,10 +78,7 @@ class Tile:
         :type zoom: int
         :return: a tuple (x, y) containing the tile-coordinates
         """
-        n = 2.0 ** zoom
-        x = int((lon + 180.0) / 360.0 * n)
-        y = int((1.0 - math.log(math.tan(math.radians(lat)) + (1 / math.cos(math.radians(lat)))) / math.pi) / 2.0 * n)
-        return x, y
+        pass
 
     @classmethod
     def tile_coords_to_bbox(cls, x, y, zoom):
@@ -99,14 +91,7 @@ class Tile:
         :param zoom: the zoom level
         :return: tuple with (lon_left, lat_bottom, lon_right, lat_top)
         """
-        def tile_to_geocoords(x, y, zoom):
-            n = 2. ** zoom
-            lon = x / n * 360. - 180.
-            lat = math.degrees(math.atan(math.sinh(math.pi * (1 - 2 * y / n))))
-            return lat, lon
-        north_west_corner =  tile_to_geocoords(x, y, zoom)
-        south_east_corner = tile_to_geocoords(x+1, y+1, zoom)
-        return north_west_corner[1], south_east_corner[0], south_east_corner[1], north_west_corner[0]
+        pass
 
     def __repr__(self):
         return "<%s.%s - x=%s, y=%s, zoom=%s, map_layer=%s>" % (

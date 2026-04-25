@@ -61,9 +61,7 @@ class AggregatedMeasurement:
         :raises: ValueError
 
         """
-        if self.timestamp is None:
-            return None
-        return formatting.timeformat(self.timestamp, timeformat)
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):
@@ -168,9 +166,7 @@ class Measurement:
         :raises: ValueError
 
         """
-        if self.timestamp is None:
-            return None
-        return formatting.timeformat(self.timestamp, timeformat)
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):
@@ -261,7 +257,7 @@ class Measurement:
         :returns: the JSON string
 
         """
-        return json.dumps(self.to_dict())
+        pass
 
     def __repr__(self):
         return '<%s.%s - station_id=%s, created_at=%s>' \

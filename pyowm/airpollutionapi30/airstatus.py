@@ -70,7 +70,7 @@ class AirStatus:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.rec_time, timeformat)
+        pass
 
 
     @classmethod

@@ -70,7 +70,7 @@ class Trigger:
         Returns all of the alerts for this `Trigger`
         :return: a list of `Alert` objects
         """
-        return self.alerts
+        pass
 
     def get_alert(self, alert_id):
         """
@@ -78,10 +78,7 @@ class Trigger:
         :param alert_id: str, the ID of the alert
         :return: `Alert` instance
         """
-        for alert in self.alerts:
-            if alert.id == alert_id:
-                return alert
-        return None
+        pass
 
     def get_alerts_since(self, timestamp):
         """
@@ -90,8 +87,7 @@ class Trigger:
         :type timestamp: int, ``datetime.datetime`` or ISO8601-formatted string
         :return: list of `Alert` instances
         """
-        unix_timestamp = formatting.to_UNIXtime(timestamp)
-        return [alert for alert in self.alerts if alert.last_update >= unix_timestamp]
+        pass
 
     def get_alerts_on(self, weather_param):
         """
@@ -101,13 +97,7 @@ class Trigger:
         :param weather_param: str, values in `pyowm.alertapi30.enums.WeatherParametersEnum`
         :return: list of `Alert` instances
         """
-        result = []
-        for alert in self.alerts:
-            for met_condition in alert.met_conditions:
-                if met_condition['condition'].weather_param == weather_param:
-                    result.append(alert)
-                    break
-        return result
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

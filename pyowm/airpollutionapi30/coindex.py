@@ -73,21 +73,21 @@ class COIndex:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.rec_time, timeformat)
+        pass
 
     def sample_with_highest_vmr(self):
         """
         Returns the CO sample with the highest Volume Mixing Ratio value
         :return: dict
         """
-        return max(self.co_samples, key=lambda x: x['value'])
+        pass
 
     def sample_with_lowest_vmr(self):
         """
         Returns the CO sample with the lowest Volume Mixing Ratio value
         :return: dict
         """
-        return min(self.co_samples, key=lambda x: x['value'])
+        pass
 
     def is_forecast(self):
         """
@@ -95,8 +95,7 @@ class COIndex:
         to the current date
         :return: bool
         """
-        return timestamps.now(timeformat='unix') < \
-               self.reference_time(timeformat='unix')
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

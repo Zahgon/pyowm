@@ -11,13 +11,13 @@ class UTC(tzinfo):
     """UTC"""
 
     def utcoffset(self, dt):
-        return ZERO
+        pass
 
     def tzname(self, dt):
-        return "UTC"
+        pass
 
     def dst(self, dt):
-        return ZERO
+        pass
 
 
 def timeformat(timeobject, timeformat):

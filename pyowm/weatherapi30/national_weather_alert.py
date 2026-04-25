@@ -59,7 +59,7 @@ class NationalWeatherAlert:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.start, timeformat)
+        pass
 
     def end_time(self, timeformat='unix'):
         """
@@ -74,7 +74,7 @@ class NationalWeatherAlert:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.end, timeformat)
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

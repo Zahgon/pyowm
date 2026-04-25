@@ -31,7 +31,7 @@ class AlertManager:
         self.http_client = HttpClient(API_key, config, ROOT_ALERT_API_URL)
 
     def alert_api_version(self):
-        return ALERT_API_VERSION
+        pass
 
     # TRIGGER methods
 
@@ -53,46 +53,7 @@ class AlertManager:
         :raises: *ValueError* when start or end epochs are `None` or when end precedes start or when conditions or area
         are empty collections
         """
-        assert start is not None
-        assert end is not None
-
-        # prepare time period
-        unix_start = formatting.to_UNIXtime(start)
-        unix_end = formatting.to_UNIXtime(end)
-        unix_current = timestamps.now(timeformat='unix')
-        if unix_start >= unix_end:
-            raise ValueError("The start timestamp must precede the end timestamp")
-        delta_millis_start = timestamps.millis_offset_between_epochs(unix_current, unix_start)
-        delta_millis_end = timestamps.millis_offset_between_epochs(unix_current, unix_end)
-        the_time_period = {
-            "start": {
-                "expression": "after",
-                "amount": delta_millis_start
-            },
-            "end": {
-                "expression": "after",
-                "amount": delta_millis_end
-            }
-        }
-
-        assert conditions is not None
-        if len(conditions) == 0:
-            raise ValueError('A trigger must contain at least one condition: you provided none')
-        the_conditions = [dict(name=c.weather_param, expression=c.operator, amount=c.amount) for c in conditions]
-
-        assert area is not None
-        if len(area) == 0:
-            raise ValueError('The area for a trigger must contain at least one geoJSON type: you provided none')
-        the_area = [a.to_dict() for a in area]
-
-        # >>> for the moment, no specific handling for alert channels
-
-        status, payload = self.http_client.post(
-            TRIGGERS_URI,
-            params={'appid': self.API_key},
-            data=dict(time_period=the_time_period, conditions=the_conditions, area=the_area),
-            headers={'Content-Type': 'application/json'})
-        return Trigger.from_dict(payload)
+        pass
 
     def get_triggers(self):
         """
@@ -101,11 +62,7 @@ class AlertManager:
         :returns: list of `pyowm.alertapi30.trigger.Trigger` objects
 
         """
-        status, data = self.http_client.get_json(
-            TRIGGERS_URI,
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
-        return [Trigger.from_dict(item) for item in data]
+        pass
 
     def get_trigger(self, trigger_id):
         """
@@ -115,12 +72,7 @@ class AlertManager:
         :type trigger_id: str
         :return: a `pyowm.alertapi30.trigger.Trigger` instance
         """
-        assert isinstance(trigger_id, str), "Value must be a string"
-        status, data = self.http_client.get_json(
-            NAMED_TRIGGER_URI % trigger_id,
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
-        return Trigger.from_dict(data)
+        pass
 
     def update_trigger(self, trigger):
         """
@@ -131,26 +83,7 @@ class AlertManager:
         :type trigger: `pyowm.alertapi30.trigger.Trigger`
         :return: ``None`` if update is successful, an error otherwise
         """
-        assert trigger is not None
-        assert isinstance(trigger.id, str), "Value must be a string"
-        the_time_period = {
-            "start": {
-                "expression": "after",
-                "amount": trigger.start_after_millis
-            },
-            "end": {
-                "expression": "after",
-                "amount": trigger.end_after_millis
-            }
-        }
-        the_conditions = [dict(name=c.weather_param, expression=c.operator, amount=c.amount) for c in trigger.conditions]
-        the_area = [a.to_dict() for a in trigger.area]
-
-        status, _ = self.http_client.put(
-            NAMED_TRIGGER_URI % trigger.id,
-            params={'appid': self.API_key},
-            data=dict(time_period=the_time_period, conditions=the_conditions, area=the_area),
-            headers={'Content-Type': 'application/json'})
+        pass
 
     def delete_trigger(self, trigger):
         """
@@ -161,12 +94,7 @@ class AlertManager:
         :type trigger: `pyowm.alertapi30.trigger.Trigger`
         :returns: `None` if deletion is successful, an exception otherwise
         """
-        assert trigger is not None
-        assert isinstance(trigger.id, str), "Value must be a string"
-        status, _ = self.http_client.delete(
-            NAMED_TRIGGER_URI % trigger.id,
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
+        pass
 
     # ALERTS methods
 
@@ -177,13 +105,7 @@ class AlertManager:
         :type trigger: `pyowm.alertapi30.trigger.Trigger`
         :return: list of `pyowm.alertapi30.alert.Alert` objects
         """
-        assert trigger is not None
-        assert isinstance(trigger.id, str), "Value must be a string"
-        status, data = self.http_client.get_json(
-            ALERTS_URI % trigger.id,
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
-        return [Alert.from_dict(item) for item in data]
+        pass
 
     def get_alert(self, alert_id, trigger):
         """
@@ -195,15 +117,7 @@ class AlertManager:
         :type alert_id `pyowm.alertapi30.alert.Alert`
         :return: an `pyowm.alertapi30.alert.Alert` instance
         """
-        assert trigger is not None
-        assert alert_id is not None
-        assert isinstance(alert_id, str), "Value must be a string"
-        assert isinstance(trigger.id, str), "Value must be a string"
-        status, data = self.http_client.get_json(
-            NAMED_ALERT_URI % (trigger.id, alert_id),
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
-        return Alert.from_dict(data)
+        pass
 
     def delete_all_alerts_for(self, trigger):
         """
@@ -212,12 +126,7 @@ class AlertManager:
         :type trigger: `pyowm.alertapi30.trigger.Trigger`
         :return: `None` if deletion is successful, an exception otherwise
         """
-        assert trigger is not None
-        assert isinstance(trigger.id, str), "Value must be a string"
-        status, _ = self.http_client.delete(
-            ALERTS_URI % trigger.id,
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
+        pass
 
     def delete_alert(self, alert):
         """
@@ -226,13 +135,7 @@ class AlertManager:
         :type alert: pyowm.alertapi30.alert.Alert`
         :return: ``None`` if the deletion was successful, an error otherwise
         """
-        assert alert is not None
-        assert isinstance(alert.id, str), "Value must be a string"
-        assert isinstance(alert.trigger_id, str), "Value must be a string"
-        status, _ = self.http_client.delete(
-            NAMED_ALERT_URI % (alert.trigger_id, alert.id),
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)

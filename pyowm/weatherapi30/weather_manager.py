@@ -33,7 +33,7 @@ class WeatherManager:
         self.one_call_http_client = HttpClient(API_key, config, ONE_CALL_ROOT_URI)
 
     def weather_api_version(self):
-        return WEATHER_API_VERSION
+        pass
 
     def weather_at_place(self, name):
         """
@@ -69,11 +69,7 @@ class WeatherManager:
             cannot be parsed or *APICallException* when OWM Weather API can not be
             reached
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat}
-        _, json_data = self.http_client.get_json(OBSERVATION_URI, params=params)
-        return observation.Observation.from_dict(json_data)
+        pass
 
     def weather_at_zip_code(self, zipcode, country):
         """
@@ -90,12 +86,7 @@ class WeatherManager:
             cannot be parsed or *APICallException* when OWM Weather API can not be
             reached
         """
-        assert isinstance(zipcode, str), "Value must be a string"
-        assert isinstance(country, str), "Value must be a string"
-        zip_param = zipcode + ',' + country
-        params = {'zip': zip_param}
-        _, json_data = self.http_client.get_json(OBSERVATION_URI, params=params)
-        return observation.Observation.from_dict(json_data)
+        pass
 
     def weather_at_id(self, id):
         """
@@ -110,12 +101,7 @@ class WeatherManager:
             cannot be parsed or *APICallException* when OWM Weather API can not be
             reached
         """
-        assert type(id) is int, "'id' must be an int"
-        if id < 0:
-            raise ValueError("'id' value must be greater than 0")
-        params = {'id': id}
-        _, json_data = self.http_client.get_json(OBSERVATION_URI, params=params)
-        return observation.Observation.from_dict(json_data)
+        pass
 
     def weather_at_ids(self, ids_list):
         """
@@ -130,15 +116,7 @@ class WeatherManager:
             cannot be parsed or *APICallException* when OWM Weather API can not be
             reached
         """
-        assert type(ids_list) is list, "'ids_list' must be a list of integers"
-        for id in ids_list:
-            assert type(id) is int, "'ids_list' must be a list of integers"
-            if id < 0:
-                raise ValueError("id values in 'ids_list' must be greater "
-                                 "than 0")
-        params = {'id': ','.join(list(map(str, ids_list)))}
-        _, json_data = self.http_client.get_json(GROUP_OBSERVATIONS_URI, params=params)
-        return observation.Observation.from_dict_of_lists(json_data)
+        pass
 
     def weather_at_places(self, pattern, searchtype, limit=None):
         """
@@ -163,20 +141,7 @@ class WeatherManager:
             reached, *ValueError* when bad value is supplied for the search
             type or the maximum number of items retrieved
         """
-        assert isinstance(pattern, str), "'pattern' must be a str"
-        assert isinstance(searchtype, str), "'searchtype' must be a str"
-        if searchtype not in ["accurate", "like"]:
-            raise ValueError("'searchtype' value must be 'accurate' or 'like'")
-        if limit is not None:
-            assert isinstance(limit, int), "'limit' must be an int or None"
-            if limit < 1:
-                raise ValueError("'limit' must be None or greater than zero")
-        params = {'q': pattern, 'type': searchtype}
-        if limit is not None:
-            # fix for OWM 3.0 API bug!
-            params['cnt'] = limit - 1
-        _, json_data = self.http_client.get_json(FIND_OBSERVATIONS_URI, params=params)
-        return observation.Observation.from_dict_of_lists(json_data)
+        pass
 
     def weather_at_places_in_bbox(self, lon_left, lat_bottom, lon_right, lat_top,
                                   zoom=10, cluster=False):
@@ -207,22 +172,7 @@ class WeatherManager:
             reached, *ValueError* when coordinates values are out of bounds or
             negative values are provided for limit
         """
-        geo.assert_is_lon(lon_left)
-        geo.assert_is_lon(lon_right)
-        geo.assert_is_lat(lat_bottom)
-        geo.assert_is_lat(lat_top)
-        assert type(zoom) is int, "'zoom' must be an int"
-        if zoom <= 0:
-            raise ValueError("'zoom' must greater than zero")
-        assert type(cluster) is bool, "'cluster' must be a bool"
-        params = {'bbox': ','.join([str(lon_left),
-                                    str(lat_bottom),
-                                    str(lon_right),
-                                    str(lat_top),
-                                    str(zoom)]),
-                  'cluster': 'yes' if cluster else 'no'}
-        _, json_data = self.http_client.get_json(BBOX_CITY_URI, params=params)
-        return observation.Observation.from_dict_of_lists(json_data)
+        pass
 
     def weather_around_coords(self, lat, lon, limit=None):
         """
@@ -243,16 +193,7 @@ class WeatherManager:
             reached, *ValueError* when coordinates values are out of bounds or
             negative values are provided for limit
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat}
-        if limit is not None:
-            assert isinstance(limit, int), "'limit' must be an int or None"
-            if limit < 1:
-                raise ValueError("'limit' must be None or greater than zero")
-            params['cnt'] = limit
-        _, json_data = self.http_client.get_json(FIND_OBSERVATIONS_URI, params=params)
-        return observation.Observation.from_dict_of_lists(json_data)
+        pass
 
     def forecast_at_place(self, name, interval, limit=None):
         """
@@ -319,29 +260,7 @@ class WeatherManager:
             cannot be parsed, *APICallException* when OWM Weather API can not be
             reached
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        assert isinstance(interval, str), "Interval must be a string"
-        if limit is not None:
-            assert isinstance(limit, int), "'limit' must be an int or None"
-            if limit < 1:
-                raise ValueError("'limit' must be None or greater than zero")
-        params = {'lon': lon, 'lat': lat}
-        if limit is not None:
-            params['cnt'] = limit
-        if interval == '3h':
-            uri = THREE_HOURS_FORECAST_URI
-        elif interval == 'daily':
-            uri = DAILY_FORECAST_URI
-        else:
-            raise ValueError("Unsupported time interval for forecast")
-        _, json_data = self.http_client.get_json(uri, params=params)
-        fc = forecast.Forecast.from_dict(json_data)
-        if fc is not None:
-            fc.interval = interval
-            return forecaster.Forecaster(fc)
-        else:
-            return None
+        pass
 
     def forecast_at_id(self, id, interval, limit=None):
         """
@@ -363,30 +282,7 @@ class WeatherManager:
             cannot be parsed, *APICallException* when OWM Weather API can not be
             reached
         """
-        assert type(id) is int, "'id' must be an int"
-        if id < 0:
-            raise ValueError("'id' value must be greater than 0")
-        assert isinstance(interval, str), "Interval must be a string"
-        if limit is not None:
-            assert isinstance(limit, int), "'limit' must be an int or None"
-            if limit < 1:
-                raise ValueError("'limit' must be None or greater than zero")
-        params = {'id': id}
-        if limit is not None:
-            params['cnt'] = limit
-        if interval == '3h':
-            uri = THREE_HOURS_FORECAST_URI
-        elif interval == 'daily':
-            uri = DAILY_FORECAST_URI
-        else:
-            raise ValueError("Unsupported time interval for forecast")
-        _, json_data = self.http_client.get_json(uri, params=params)
-        fc = forecast.Forecast.from_dict(json_data)
-        if fc is not None:
-            fc.interval = interval
-            return forecaster.Forecaster(fc)
-        else:
-            return None
+        pass
 
     def station_tick_history(self, station_ID, limit=None):
         """
@@ -409,16 +305,7 @@ class WeatherManager:
             reached, *ValueError* if the limit value is negative
 
         """
-        assert isinstance(station_ID, int), "'station_ID' must be int"
-        if limit is not None:
-            assert isinstance(limit, int), "'limit' must be an int or None"
-            if limit < 1:
-                raise ValueError("'limit' must be None or greater than zero")
-        station_history = self._retrieve_station_history(station_ID, limit, "tick")
-        if station_history is not None:
-            return historian.Historian(station_history)
-        else:
-            return None
+        pass
 
     def station_hour_history(self, station_ID, limit=None):
         """
@@ -442,16 +329,7 @@ class WeatherManager:
             reached, *ValueError* if the limit value is negative
 
         """
-        assert isinstance(station_ID, int), "'station_ID' must be int"
-        if limit is not None:
-            assert isinstance(limit, int), "'limit' must be an int or None"
-            if limit < 1:
-                raise ValueError("'limit' must be None or greater than zero")
-        station_history = self._retrieve_station_history(station_ID, limit, "hour")
-        if station_history is not None:
-            return historian.Historian(station_history)
-        else:
-            return None
+        pass
 
     def station_day_history(self, station_ID, limit=None):
         """
@@ -475,30 +353,13 @@ class WeatherManager:
             reached, *ValueError* if the limit value is negative
 
         """
-        assert isinstance(station_ID, int), "'station_ID' must be int"
-        if limit is not None:
-            assert isinstance(limit, int), "'limit' must be an int or None"
-            if limit < 1:
-                raise ValueError("'limit' must be None or greater than zero")
-        station_history = self._retrieve_station_history(station_ID, limit, "day")
-        if station_history is not None:
-            return historian.Historian(station_history)
-        else:
-            return None
+        pass
 
     def _retrieve_station_history(self, station_ID, limit, interval):
         """
         Helper method for station_X_history functions.
         """
-        params = {'id': station_ID, 'type': interval}
-        if limit is not None:
-            params['cnt'] = limit
-        _, json_data = self.http_client.get_json(STATION_WEATHER_HISTORY_URI, params=params)
-        sh = stationhistory.StationHistory.from_dict(json_data)
-        if sh is not None:
-            sh.station_id = station_ID
-            sh.interval = interval
-        return sh
+        pass
 
     def one_call(self, lat: Union[int, float], lon: Union[int, float], **kwargs) -> one_call.OneCall:
         """
@@ -552,20 +413,7 @@ class WeatherManager:
             cannot be parsed, *APICallException* when OWM Weather API can not be
             reached
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        if dt is None:
-            dt = int((datetime.now(timezone.utc) - timedelta(days=5)).timestamp())
-        else:
-            if not isinstance(dt, int):
-                raise ValueError("dt must be of type int")
-            if dt < 0:
-                raise ValueError("dt must be positive")
-
-        params = {'lon': lon, 'lat': lat, 'dt': dt}
-
-        _, json_data = self.one_call_http_client.get_json(ONE_CALL_HISTORICAL_URI, params=params)
-        return one_call.OneCall.from_dict(json_data)
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)

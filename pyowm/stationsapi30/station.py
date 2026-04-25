@@ -64,16 +64,7 @@ class Station:
         self.rank = rank
 
     def _format_micros(self, datestring):
-        parts = datestring[:-1].split('.')
-        if len(parts) == 1:
-            if datestring.endswith('Z'):
-                return datestring[:-1] + '.000000Z'
-            else:
-                return datestring + '.000000Z'
-        else:
-            micros = parts[-1][:6] if len(parts[-1]) > 6 else parts[-1]
-            return '.'.join(
-                parts[:-1] + ['{:06d}'.format(int(micros))]) + 'Z'
+        pass
 
     def creation_time(self, timeformat='unix'):
         """Returns the UTC time of creation of this station
@@ -87,9 +78,7 @@ class Station:
         :raises: ValueError
 
         """
-        if self.created_at is None:
-            return None
-        return formatting.timeformat(self.created_at, timeformat)
+        pass
 
     def last_update_time(self, timeformat='unix'):
         """Returns the UTC time of the last update on this station's metadata
@@ -103,9 +92,7 @@ class Station:
         :raises: ValueError
 
         """
-        if self.updated_at is None:
-            return None
-        return formatting.timeformat(self.updated_at, timeformat)
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

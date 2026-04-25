@@ -72,7 +72,7 @@ class SO2Index:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.rec_time, timeformat)
+        pass
 
     def is_forecast(self):
         """
@@ -80,8 +80,7 @@ class SO2Index:
         to the current date
         :return: bool
         """
-        return timestamps.now(timeformat='unix') < \
-               self.reference_time(timeformat='unix')
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

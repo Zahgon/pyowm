@@ -15,24 +15,7 @@ def deprecated(will_be=None, on_version=None, name=None):
     :return: callable
     """
     def outer_function(function):
-        if name is None:
-            _name = function.__name__
-        else:
-            _name = name
-        warning_msg = '"%s" is deprecated.' % _name
-        if will_be is not None and on_version is not None:
-            warning_msg += " It will be %s on version %s" % (
-                will_be,
-                '.'.join(map(str, on_version)))
-
-        @wraps(function)
-        def inner_function(*args, **kwargs):
-            warnings.warn(warning_msg,
-                          category=DeprecationWarning,
-                          stacklevel=2)
-            return function(*args, **kwargs)
-
-        return inner_function
+        pass
 
     return outer_function
 

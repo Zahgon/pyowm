@@ -204,12 +204,7 @@ def metric_pressure_dict_to_inhg(d):
     Note what OWM says about pressure: "Atmospheric pressure [is given in hPa]
     (on the sea level, if there is no sea_level or grnd_level data)"
     """
-    result = dict()
-    for key, value in d.items():
-        if value is None:
-            continue
-        result[key] = round((value / HPA_FOR_ONE_INHG), ROUNDED_TO)
-    return result
+    pass
 
 
 def visibility_distance_to(v, target_visibility_unit='kilometers'):
@@ -223,14 +218,4 @@ def visibility_distance_to(v, target_visibility_unit='kilometers'):
     :type target_visibility_unit: str
     :returns: a converted value for visibility_distance (float)
     """
-    if v is None:
-        return v
-
-    if target_visibility_unit == 'kilometers':
-        const = KMS_FOR_ONE_METER
-    elif target_visibility_unit == 'miles':
-        const = MILE_FOR_ONE_METER
-    else:
-        raise ValueError('Invalid value for target visibility distance unit')
-
-    return round(v * const, ROUNDED_TO)
+    pass

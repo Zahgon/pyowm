@@ -47,11 +47,7 @@ class TileManager:
         :returns: a `pyowm.tiles.Tile` instance
 
         """
-        status, data = self.http_client.get_png(
-            NAMED_MAP_LAYER_URL % self.map_layer + '/%s/%s/%s.png' % (zoom, x, y),
-            params={'appid': self.API_key})
-        img = Image(data, ImageTypeEnum.PNG)
-        return Tile(x, y, zoom, self.map_layer, img)
+        pass
 
     def __repr__(self):
         return "<%s.%s - layer_name=%s>" % (__name__, self.__class__.__name__, self.map_layer)

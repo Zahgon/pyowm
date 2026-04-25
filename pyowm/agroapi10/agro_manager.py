@@ -38,7 +38,7 @@ class AgroManager:
         self.png_downloader_http_client = HttpClient(self.API_key, config, ROOT_DOWNLOAD_PNG_API)
 
     def agro_api_version(self):
-        return AGRO_API_VERSION
+        pass
 
     # POLYGON API subset methods
 
@@ -52,24 +52,7 @@ class AgroManager:
         :type name: str
         :return: a `pyowm.agro10.polygon.Polygon` instance
         """
-        assert geopolygon is not None
-        assert isinstance(geopolygon, GeoPolygon)
-        data = {
-            'geo_json': {
-                "type": "Feature",
-                "properties": {},
-                "geometry": geopolygon.to_dict(),
-            }
-        }
-
-        if name is not None:
-            data['name'] = name
-        status, payload = self.http_client.post(
-            POLYGONS_URI,
-            params={'appid': self.API_key},
-            data=data,
-            headers={'Content-Type': 'application/json'})
-        return Polygon.from_dict(payload)
+        pass
 
     def get_polygons(self):
         """
@@ -78,12 +61,7 @@ class AgroManager:
         :returns: list of `pyowm.agro10.polygon.Polygon` objects
 
         """
-
-        status, data = self.http_client.get_json(
-            POLYGONS_URI,
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
-        return [Polygon.from_dict(item) for item in data]
+        pass
 
     def get_polygon(self, polygon_id):
         """
@@ -94,11 +72,7 @@ class AgroManager:
         :returns: a `pyowm.agro10.polygon.Polygon` object
 
         """
-        status, data = self.http_client.get_json(
-            NAMED_POLYGON_URI % str(polygon_id),
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
-        return Polygon.from_dict(data)
+        pass
 
     def update_polygon(self, polygon):
         """
@@ -109,12 +83,7 @@ class AgroManager:
         :type polygon: `pyowm.agro10.polygon.Polygon` instance
         :returns: `None` if update is successful, an exception otherwise
         """
-        assert polygon.id is not None
-        status, _ = self.http_client.put(
-            NAMED_POLYGON_URI % str(polygon.id),
-            params={'appid': self.API_key},
-            data=dict(name=polygon.name),
-            headers={'Content-Type': 'application/json'})
+        pass
 
     def delete_polygon(self, polygon):
         """
@@ -124,11 +93,7 @@ class AgroManager:
         :type polygon: `pyowm.agro10.polygon.Polygon` instance
         :returns: `None` if deletion is successful, an exception otherwise
         """
-        assert polygon.id is not None
-        status, _ = self.http_client.delete(
-            NAMED_POLYGON_URI % str(polygon.id),
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
+        pass
 
     # SOIL API subset methods
 
@@ -141,23 +106,7 @@ class AgroManager:
         :returns: a `pyowm.agro10.soil.Soil` instance
 
         """
-        assert polygon is not None
-        assert isinstance(polygon, Polygon)
-        polyd = polygon.id
-        status, data = self.http_client.get_json(
-            SOIL_URI,
-            params={'appid': self.API_key,
-                    'polyid': polyd},
-            headers={'Content-Type': 'application/json'})
-        the_dict = {
-            'reference_time': data['dt'],
-            'surface_temp': data['t0'],
-            'ten_cm_temp': data['t10'],
-            'moisture': data['moisture'],
-            'polygon_id': polyd,
-        }
-
-        return Soil.from_dict(the_dict)
+        pass
 
     # Satellite Imagery subset methods
 
@@ -200,60 +149,7 @@ class AgroManager:
         :type max_valid_data_coverage: int
         :return: a list of `pyowm.agro10.imagery.MetaImage` subtypes instances
         """
-        assert polygon_id is not None
-        assert acquired_from is not None
-        assert acquired_to is not None
-        assert acquired_from <= acquired_to, 'Start timestamp of acquisition window must come before its end'
-        if min_resolution is not None:
-            assert min_resolution > 0, 'Minimum resolution must be positive'
-        if max_resolution is not None:
-            assert max_resolution > 0, 'Maximum resolution must be positive'
-        if min_resolution is not None and max_resolution is not None:
-            assert min_resolution <= max_resolution, 'Mininum resolution must be lower than maximum resolution'
-        if min_cloud_coverage is not None:
-            assert min_cloud_coverage >= 0, 'Minimum cloud coverage must be non negative'
-        if max_cloud_coverage is not None:
-            assert max_cloud_coverage >= 0, 'Maximum cloud coverage must be non negative'
-        if min_cloud_coverage is not None and max_cloud_coverage is not None:
-            assert min_cloud_coverage <= max_cloud_coverage, 'Minimum cloud coverage must be lower than maximum cloud coverage'
-        if min_valid_data_coverage is not None:
-            assert min_valid_data_coverage >= 0, 'Minimum valid data coverage must be non negative'
-        if max_valid_data_coverage is not None:
-            assert max_valid_data_coverage >= 0, 'Maximum valid data coverage must be non negative'
-        if min_valid_data_coverage is not None and max_valid_data_coverage is not None:
-            assert min_valid_data_coverage <= max_valid_data_coverage, 'Minimum valid data coverage must be lower than maximum valid data coverage'
-
-        # prepare params
-        params = dict(appid=self.API_key, polyid=polygon_id, start=acquired_from, end=acquired_to)
-        if min_resolution is not None:
-            params['resolution_min'] = min_resolution
-        if max_resolution is not None:
-            params['resolution_max'] = max_resolution
-        if acquired_by is not None:
-            params['type'] = acquired_by
-        if min_cloud_coverage is not None:
-            params['clouds_min'] = min_cloud_coverage
-        if max_cloud_coverage is not None:
-            params['clouds_max'] = max_cloud_coverage
-        if min_valid_data_coverage is not None:
-            params['coverage_min'] = min_valid_data_coverage
-        if max_valid_data_coverage is not None:
-            params['coverage_max'] = max_valid_data_coverage
-
-        # call API
-        status, data = self.http_client.get_json(SATELLITE_IMAGERY_SEARCH_URI, params=params)
-
-        result_set = SatelliteImagerySearchResultSet(polygon_id, data, timestamps.now(timeformat='unix'))
-
-        # further filter by img_type and/or preset (if specified)
-        if img_type is not None and preset is not None:
-            return result_set.with_img_type_and_preset(img_type, preset)
-        elif img_type is not None:
-            return result_set.with_img_type(img_type)
-        elif preset is not None:
-            return result_set.with_preset(preset)
-        else:
-            return result_set.all()
+        pass
 
     def download_satellite_image(self, metaimage, x=None, y=None, zoom=None, palette=None):
         """
@@ -273,39 +169,7 @@ class AgroManager:
         :type palette: str or `None`
         :return: a `pyowm.agroapi10.imagery.SatelliteImage` instance containing both image's metadata and data
         """
-        if palette is not None:
-            assert isinstance(palette, str)
-            params = dict(paletteid=palette)
-        else:
-            palette = PaletteEnum.GREEN
-            params = {}
-        # polygon PNG
-        if isinstance(metaimage, MetaPNGImage):
-            prepared_url = metaimage.url
-            status, data = self.png_downloader_http_client.get_png(
-                prepared_url, params=params)
-            img = Image(data, metaimage.image_type)
-            return SatelliteImage(metaimage, img, downloaded_on=timestamps.now(timeformat='unix'), palette=palette)
-        # GeoTIF
-        elif isinstance(metaimage, MetaGeoTiffImage):
-            prepared_url = metaimage.url
-            status, data = self.geotiff_downloader_http_client.get_geotiff(
-                prepared_url, params=params)
-            img = Image(data, metaimage.image_type)
-            return SatelliteImage(metaimage, img, downloaded_on=timestamps.now(timeformat='unix'), palette=palette)
-        # tile PNG
-        elif isinstance(metaimage, MetaTile):
-            assert x is not None
-            assert y is not None
-            assert zoom is not None
-            prepared_url = self._fill_url(metaimage.url, x, y, zoom)
-            status, data = self.http_client.get_png(
-                prepared_url, params=params)
-            img = Image(data, metaimage.image_type)
-            tile = Tile(x, y, zoom, None, img)
-            return SatelliteImage(metaimage, tile, downloaded_on=timestamps.now(timeformat='unix'), palette=palette)
-        else:
-            raise ValueError("Cannot download: unsupported MetaImage subtype")
+        pass
 
     def stats_for_satellite_image(self, metaimage):
         """
@@ -316,16 +180,11 @@ class AgroManager:
         :type metaimage: a `pyowm.agroapi10.imagery.MetaImage` subtype
         :return: dict
         """
-        if metaimage.preset not in [PresetEnum.EVI, PresetEnum.NDVI]:
-            raise ValueError("Unsupported image preset: should be EVI or NDVI")
-        if metaimage.stats_url is None:
-            raise ValueError("URL for image statistics is not defined")
-        status, data = self.http_client.get_json(metaimage.stats_url, params={})
-        return data
+        pass
 
     # Utilities
     def _fill_url(self, url_template, x, y, zoom):
-        return url_template.replace('{x}', str(x)).replace('{y}', str(y)).replace('{z}', str(zoom))
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)

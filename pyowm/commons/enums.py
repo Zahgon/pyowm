@@ -51,10 +51,7 @@ class ImageTypeEnum:
 
     @classmethod
     def lookup_by_mime_type(cls, mime_type):
-        for i in ImageTypeEnum.items():
-            if i.mime_type == mime_type:
-                return i
-        return None
+        pass
 
     @classmethod
     def lookup_by_name(cls, name):

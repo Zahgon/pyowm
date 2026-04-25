@@ -30,7 +30,7 @@ class UVIndexManager:
             API_key, HttpClient(API_key, config, ROOT_UV_API_URL))
 
     def uvindex_api_version(self):
-        return UVINDEX_API_VERSION
+        pass
 
     def uvindex_around_coords(self, lat, lon):
         """
@@ -48,11 +48,7 @@ class UVIndexManager:
             cannot be parsed, *APICallException* when OWM UV Index API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat}
-        json_data = self.uv_client.get_uvi(params)
-        return uvindex.UVIndex.from_dict(json_data)
+        pass
 
     def uvindex_forecast_around_coords(self, lat, lon):
         """
@@ -68,11 +64,7 @@ class UVIndexManager:
             cannot be parsed, *APICallException* when OWM UV Index API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat}
-        json_data = self.uv_client.get_uvi_forecast(params)
-        return [uvindex.UVIndex.from_dict(item) for item in json_data]
+        pass
 
     def uvindex_history_around_coords(self, lat, lon, start, end=None):
         """
@@ -96,17 +88,7 @@ class UVIndexManager:
             cannot be parsed, *APICallException* when OWM UV Index API can not be
             reached, *ValueError* for wrong input values
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        assert start is not None
-        start = formatting.timeformat(start, 'unix')
-        if end is None:
-            end = timestamps.now(timeformat='unix')
-        else:
-            end = formatting.timeformat(end, 'unix')
-        params = {'lon': lon, 'lat': lat, 'start': start, 'end': end}
-        json_data = self.uv_client.get_uvi_history(params)
-        return [uvindex.UVIndex.from_dict(item) for item in json_data]
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)

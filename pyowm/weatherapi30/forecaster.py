@@ -37,8 +37,7 @@ class Forecaster:
         :raises: *ValueError* when invalid time format values are provided
 
         """
-        start_coverage = min(item.reference_time() for item in self.forecast)
-        return formatting.timeformat(start_coverage, timeformat)
+        pass
 
     def when_ends(self, timeformat='unix'):
         """
@@ -54,8 +53,7 @@ class Forecaster:
         :raises: *ValueError* when invalid time format values are provided
 
         """
-        end_coverage = max(item.reference_time() for item in self.forecast)
-        return formatting.timeformat(end_coverage, timeformat)
+        pass
 
     def will_have_rain(self):
         """
@@ -65,7 +63,7 @@ class Forecaster:
         :returns: boolean
 
         """        
-        return weather.any_status_is(self.forecast.weathers, "rain", self._wc_registry)
+        pass
 
     def will_have_clear(self):
         """
@@ -75,7 +73,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return weather.any_status_is(self.forecast.weathers, "sun", self._wc_registry)
+        pass
 
     def will_have_fog(self):
         """
@@ -85,7 +83,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return weather.any_status_is(self.forecast.weathers, "fog", self._wc_registry)
+        pass
 
     def will_have_clouds(self):
         """
@@ -95,7 +93,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return weather.any_status_is(self.forecast.weathers, "clouds", self._wc_registry)
+        pass
 
     def will_have_snow(self):
         """
@@ -105,7 +103,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return weather.any_status_is(self.forecast.weathers, "snow", self._wc_registry)
+        pass
 
     def will_have_storm(self):
         """
@@ -115,7 +113,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return weather.any_status_is(self.forecast.weathers, "storm", self._wc_registry)
+        pass
 
     def will_have_tornado(self):
         """
@@ -125,7 +123,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return weather.any_status_is(self.forecast.weathers, "tornado", self._wc_registry)
+        pass
 
     def will_have_hurricane(self):
         """
@@ -135,7 +133,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return weather.any_status_is(self.forecast.weathers, "hurricane", self._wc_registry)
+        pass
 
     def when_rain(self):
         """
@@ -144,7 +142,7 @@ class Forecaster:
 
         :returns: a list of *Weather* objects
         """
-        return weather.filter_by_status(self.forecast.weathers, "rain", self._wc_registry)
+        pass
 
     def when_clear(self):
         """
@@ -153,7 +151,7 @@ class Forecaster:
 
         :returns: a list of *Weather* objects
         """
-        return weather.filter_by_status(self.forecast.weathers, "sun", self._wc_registry)
+        pass
 
 
     def when_fog(self):
@@ -163,7 +161,7 @@ class Forecaster:
 
         :returns: a list of *Weather* objects
         """
-        return weather.filter_by_status(self.forecast.weathers, "fog", self._wc_registry)
+        pass
 
     def when_clouds(self):
         """
@@ -172,7 +170,7 @@ class Forecaster:
 
         :returns: a list of *Weather* objects
         """
-        return weather.filter_by_status(self.forecast.weathers, "clouds", self._wc_registry)
+        pass
 
     def when_snow(self):
         """
@@ -181,7 +179,7 @@ class Forecaster:
 
         :returns: a list of *Weather* objects
         """
-        return weather.filter_by_status(self.forecast.weathers, "snow", self._wc_registry)
+        pass
 
     def when_storm(self):
         """
@@ -190,7 +188,7 @@ class Forecaster:
 
         :returns: a list of *Weather* objects
         """
-        return weather.filter_by_status(self.forecast.weathers, "storm", self._wc_registry)
+        pass
 
     def when_tornado(self):
         """
@@ -199,7 +197,7 @@ class Forecaster:
 
         :returns: a list of *Weather* objects
         """
-        return weather.filter_by_status(self.forecast.weathers, "tornado", self._wc_registry)
+        pass
 
     def when_hurricane(self):
         """
@@ -208,7 +206,7 @@ class Forecaster:
 
         :returns: a list of *Weather* objects
         """
-        return weather.filter_by_status(self.forecast.weathers, "hurricane", self._wc_registry)
+        pass
 
     def _will_be(self, timeobject, weather_condition):
         """
@@ -244,7 +242,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return self._will_be(timeobject, "rain")
+        pass
 
     def will_be_clear_at(self, timeobject):
         """
@@ -274,7 +272,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return self._will_be(timeobject, "snow")
+        pass
 
     def will_be_cloudy_at(self, timeobject):
         """
@@ -289,7 +287,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return self._will_be(timeobject, "clouds")
+        pass
 
     def will_be_foggy_at(self, timeobject):
         """
@@ -304,7 +302,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return self._will_be(timeobject, "fog")
+        pass
 
     def will_be_stormy_at(self, timeobject):
         """
@@ -319,7 +317,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return self._will_be(timeobject, "storm")
+        pass
 
     def will_be_tornado_at(self, timeobject):
         """
@@ -334,7 +332,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return self._will_be(timeobject, "tornado")
+        pass
 
     def will_be_hurricane_at(self, timeobject):
         """
@@ -349,7 +347,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return self._will_be(timeobject, "hurricane")
+        pass
 
     def get_weather_at(self, timeobject):
         """
@@ -363,9 +361,7 @@ class Forecaster:
         :returns: a *Weather* object
 
         """
-        return weather. \
-            find_closest_weather(self.forecast.weathers,
-                                 formatting.to_UNIXtime(timeobject))
+        pass
 
     def most_hot(self):
         """
@@ -376,14 +372,7 @@ class Forecaster:
         :returns: a *Weather* object or ``None`` if no item in the forecast is
             eligible
         """
-        maxtemp = -270.0  # No one would survive that...
-        hottest = None
-        for weather in self.forecast.weathers:
-            d = weather.temperature()
-            if 'temp_max' in d and d['temp_max'] > maxtemp:
-                maxtemp = d['temp_max']
-                hottest = weather
-        return hottest
+        pass
 
     def most_cold(self):
         """
@@ -394,14 +383,7 @@ class Forecaster:
         :returns: a *Weather* object or ``None`` if no item in the forecast is
             eligible
         """
-        mintemp = 1000.0  # No one would survive that...
-        coldest = None
-        for weather in self.forecast.weathers:
-            d = weather.temperature()
-            if 'temp_min' in d and d['temp_min'] < mintemp:
-                mintemp = d['temp_min']
-                coldest = weather
-        return coldest
+        pass
 
     def most_humid(self):
         """
@@ -411,14 +393,7 @@ class Forecaster:
         :returns: a *Weather* object or ``None`` if no item in the forecast is
             eligible
         """
-        max_humidity = 0
-        most_humid = None
-        for weather in self.forecast.weathers:
-            h = weather.humidity
-            if h > max_humidity:
-                max_humidity = h
-                most_humid = weather
-        return most_humid
+        pass
 
     def most_rainy(self):
         """
@@ -429,14 +404,7 @@ class Forecaster:
         :returns: a *Weather* object or ``None`` if no item in the forecast is
             eligible
         """
-        max_rain = 0
-        most_rainy = None
-        for weather in self.forecast.weathers:
-            d = weather.rain
-            if 'all' in d and d['all'] > max_rain:
-                max_rain = d['all']
-                most_rainy = weather
-        return most_rainy
+        pass
 
     def most_snowy(self):
         """
@@ -447,14 +415,7 @@ class Forecaster:
         :returns: a *Weather* object or ``None`` if no item in the forecast is
             eligible
         """
-        max_snow = 0
-        most_snowy = None
-        for weather in self.forecast.weathers:
-            d = weather.snow
-            if 'all' in d and d['all'] > max_snow:
-                max_snow = d['all']
-                most_snowy = weather
-        return most_snowy
+        pass
 
     def most_windy(self):
         """
@@ -465,14 +426,7 @@ class Forecaster:
         :returns: a *Weather* object or ``None`` if no item in the forecast is
             eligible
         """
-        max_wind_speed = 0
-        most_windy = None
-        for weather in self.forecast.weathers:
-            d = weather.wind()
-            if 'speed' in d and d['speed'] > max_wind_speed:
-                max_wind_speed = d['speed']
-                most_windy = weather
-        return most_windy
+        pass
 
     def __repr__(self):
         return "<%s.%s>" % (__name__, self.__class__.__name__)

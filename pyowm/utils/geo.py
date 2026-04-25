@@ -83,11 +83,11 @@ class Point(Geometry):
 
     @property
     def lon(self):
-        return self._geom['coordinates'][0]
+        pass
 
     @property
     def lat(self):
-        return self._geom['coordinates'][1]
+        pass
 
     def bounding_square_polygon(self, inscribed_circle_radius_km=10.0):
         """
@@ -103,46 +103,7 @@ class Point(Geometry):
          :type inscribed_circle_radius_km: int or float
          :return: a `pyowm.utils.geo.Polygon` instance
          """
-        assert isinstance(inscribed_circle_radius_km, (int, float))
-        assert inscribed_circle_radius_km > 0., 'Radius must be greater than zero'
-
-        # turn metric distance to radians on the approximated local sphere
-        rad_distance = float(inscribed_circle_radius_km) / EARTH_RADIUS_KM
-
-        # calculating min/max lat for bounding box
-        bb_min_lat_deg = self.lat * math.pi/180. - rad_distance
-        bb_max_lat_deg = self.lat * math.pi/180. + rad_distance
-
-        # now checking for poles...
-        if bb_min_lat_deg > math.radians(-90) and bb_max_lat_deg < math.radians(90):  # no poles in the bounding box
-            delta_lon = math.asin(math.sin(rad_distance) / math.cos(math.radians(self.lat)))
-
-            bb_min_lon_deg = math.radians(self.lon) - delta_lon
-            if bb_min_lon_deg < math.radians(-180):
-                bb_min_lon_deg += 2 * math.pi
-
-            bb_max_lon_deg = math.radians(self.lon) + delta_lon
-            if bb_max_lon_deg > math.radians(180):
-                bb_max_lon_deg -= 2 * math.pi
-        else:   # a pole is contained in the bounding box
-            bb_min_lat_deg = max(bb_min_lat_deg, math.radians(-90))
-            bb_max_lat_deg = min(bb_max_lat_deg, math.radians(90))
-            bb_min_lon_deg = math.radians(-180)
-            bb_max_lon_deg = math.radians(180)
-
-        # turn back from radians to decimal
-        bb_min_lat = bb_min_lat_deg * 180./math.pi
-        bb_max_lat = bb_max_lat_deg * 180./math.pi
-        bb_min_lon = bb_min_lon_deg * 180./math.pi
-        bb_max_lon = bb_max_lon_deg * 180./math.pi
-
-        return Polygon([[
-            [bb_min_lon, bb_max_lat],
-            [bb_max_lon, bb_max_lat],
-            [bb_max_lon, bb_min_lat],
-            [bb_min_lon, bb_min_lat],
-            [bb_min_lon, bb_max_lat]
-        ]])
+        pass
 
     def geojson(self):
         return geojson.dumps(self._geom)
@@ -191,7 +152,7 @@ class MultiPoint(Geometry):
         :type iterable_of_points: iterable
         :return: a *MultiPoint* instance
         """
-        return MultiPoint([(p.lon, p.lat) for p in iterable_of_points])
+        pass
 
     @property
     def longitudes(self):
@@ -199,7 +160,7 @@ class MultiPoint(Geometry):
         List of decimal longitudes of this MultiPoint instance
         :return: list of tuples
         """
-        return [coords[0] for coords in self._geom['coordinates']]
+        pass
 
     @property
     def latitudes(self):
@@ -207,7 +168,7 @@ class MultiPoint(Geometry):
         List of decimal latitudes of this MultiPoint instance
         :return: list of tuples
         """
-        return [coords[1] for coords in self._geom['coordinates']]
+        pass
 
     def geojson(self):
         return geojson.dumps(self._geom)
@@ -264,9 +225,7 @@ class Polygon(Geometry):
         Returns the list of *Point* instances representing the points of the polygon
         :return: list of *Point* objects
         """
-        feature = geojson.Feature(geometry=self._geom)
-        points_coords = list(geojson.utils.coords(feature))
-        return [Point(p[0], p[1]) for p in points_coords]
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):
@@ -290,11 +249,7 @@ class Polygon(Geometry):
         :returns:  a *Polygon* instance
 
         """
-        result = []
-        for l in list_of_lists:
-            curve = [(point.lon, point.lat) for point in l]
-            result.append(curve)
-        return Polygon(result)
+        pass
 
 
 class MultiPolygon(Geometry):
@@ -346,7 +301,7 @@ class MultiPolygon(Geometry):
         :returns:  a *MultiPolygon* instance
 
         """
-        return MultiPolygon([polygon.to_dict()['coordinates'] for polygon in iterable_of_polygons])
+        pass
 
 
 class GeometryBuilder:

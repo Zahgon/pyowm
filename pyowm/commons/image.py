@@ -30,8 +30,7 @@ class Image:
         :type path_to_file: str
         :return: `None`
         """
-        with open(path_to_file, 'wb') as f:
-            f.write(self.data)
+        pass
 
     @classmethod
     def load(cls, path_to_file):
@@ -42,13 +41,7 @@ class Image:
         :type path_to_file: str
         :return: a `pyowm.image.Image` instance
         """
-        import mimetypes
-        mimetypes.init()
-        mime = mimetypes.guess_type('file://%s' % path_to_file)[0]
-        img_type = ImageTypeEnum.lookup_by_mime_type(mime)
-        with open(path_to_file, 'rb') as f:
-            data = f.read()
-        return Image(data, image_type=img_type)
+        pass
 
     def __repr__(self):
         return "<%s.%s - type=%s>" % (__name__, self.__class__.__name__, str(self.image_type))

@@ -25,19 +25,7 @@ class AirPollutionHttpClient:
         self._client = httpclient
 
     def _trim_to(self, date_object, interval):
-        if interval == 'minute':
-            return date_object.strftime('%Y-%m-%dT%H:%MZ')
-        elif interval == 'hour':
-            return date_object.strftime('%Y-%m-%dT%HZ')
-        elif interval == 'day':
-            return date_object.strftime('%Y-%m-%dZ')
-        elif interval == 'month':
-            return date_object.strftime('%Y-%mZ')
-        elif interval == 'year':
-            return date_object.strftime('%YZ')
-        else:
-            raise ValueError("The interval provided for the search "
-                             "window is invalid")
+        pass
 
     def get_coi(self, params_dict):
         """
@@ -48,23 +36,7 @@ class AirPollutionHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        lat = str(params_dict['lat'])
-        lon = str(params_dict['lon'])
-        start = params_dict['start']
-        interval = params_dict['interval']
-
-        # build request URL
-        if start is None:
-            timeref = 'current'
-        else:
-            if interval is None:
-                timeref = self._trim_to(formatting.to_date(start), 'year')
-            else:
-                timeref = self._trim_to(formatting.to_date(start), interval)
-
-        uri = '%s/%s,%s/%s.json' % (CO_INDEX_URL, lat, lon, timeref)
-        _, json_data = self._client.get_json(uri)
-        return json_data
+        pass
 
     def get_o3(self, params_dict):
         """
@@ -75,25 +47,7 @@ class AirPollutionHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        lat = str(params_dict['lat'])
-        lon = str(params_dict['lon'])
-        start = params_dict['start']
-        interval = params_dict['interval']
-
-        # build request URL
-        if start is None:
-            timeref = 'current'
-        else:
-            if interval is None:
-                timeref = self._trim_to(
-                    formatting.to_date(start), 'year')
-            else:
-                timeref = self._trim_to(
-                    formatting.to_date(start), interval)
-
-        uri = '%s/%s,%s/%s.json' % (OZONE_URL, lat, lon, timeref)
-        _, json_data = self._client.get_json(uri)
-        return json_data
+        pass
 
     def get_no2(self, params_dict):
         """
@@ -104,25 +58,7 @@ class AirPollutionHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        lat = str(params_dict['lat'])
-        lon = str(params_dict['lon'])
-        start = params_dict['start']
-        interval = params_dict['interval']
-
-        # build request URL
-        if start is None:
-            timeref = 'current'
-        else:
-            if interval is None:
-                timeref = self._trim_to(
-                    formatting.to_date(start), 'year')
-            else:
-                timeref = self._trim_to(
-                    formatting.to_date(start), interval)
-
-        uri = '%s/%s,%s/%s.json' % (NO2_INDEX_URL, lat, lon, timeref)
-        _, json_data = self._client.get_json(uri)
-        return json_data
+        pass
 
     def get_so2(self, params_dict):
         """
@@ -133,25 +69,7 @@ class AirPollutionHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        lat = str(params_dict['lat'])
-        lon = str(params_dict['lon'])
-        start = params_dict['start']
-        interval = params_dict['interval']
-
-        # build request URL
-        if start is None:
-            timeref = 'current'
-        else:
-            if interval is None:
-                timeref = self._trim_to(
-                    formatting.to_date(start), 'year')
-            else:
-                timeref = self._trim_to(
-                    formatting.to_date(start), interval)
-
-        uri = '%s/%s,%s/%s.json' % (SO2_INDEX_URL, lat, lon, timeref)
-        _, json_data = self._client.get_json(uri)
-        return json_data
+        pass
 
     def get_air_pollution(self, params_dict):
         """
@@ -162,8 +80,7 @@ class AirPollutionHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        _, json_data = self._client.get_json(AIR_POLLUTION_URL, params=params_dict)
-        return json_data
+        pass
 
     def get_forecast_air_pollution(self, params_dict):
         """
@@ -174,8 +91,7 @@ class AirPollutionHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        _, json_data = self._client.get_json(AIR_POLLUTION_FORECAST_URL, params=params_dict)
-        return json_data
+        pass
 
     def get_historical_air_pollution(self, params_dict):
         """
@@ -186,8 +102,7 @@ class AirPollutionHttpClient:
         :raises: *ValueError*, *APIRequestError*
 
         """
-        _, json_data = self._client.get_json(AIR_POLLUTION_HISTORY_URL, params=params_dict)
-        return json_data
+        pass
 
     def __repr__(self):
         return "<%s.%s - httpclient=%s>" % \

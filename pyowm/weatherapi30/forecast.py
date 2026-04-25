@@ -62,16 +62,14 @@ class Forecast:
         :raises: ValueError
 
         """
-        return formatting.timeformat(self.rec_time, timeformat)
+        pass
 
     def actualize(self):
         """
         Removes from this forecast all the *Weather* objects having a reference
         timestamp in the past with respect to the current timestamp
         """
-        current_time = timestamps.now(timeformat='unix')
-        actualized_weathers = filter(lambda x: x.reference_time(timeformat='unix') >= current_time, self.weathers)
-        self.weathers = list(actualized_weathers)
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

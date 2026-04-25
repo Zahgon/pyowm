@@ -48,7 +48,7 @@ class Observation:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.rec_time, timeformat)
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):
@@ -116,29 +116,4 @@ class Observation:
             data needed to build the result, *APIResponseError* if the OWM API returns an HTTP status error
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('JSON data is None')
-        if 'cod' in the_dict:
-            # Check if server returned errors: this check overcomes the lack of use
-            # of HTTP error status codes by the OWM API 3.0. This mechanism is
-            # supposed to be deprecated as soon as the API fully adopts HTTP for
-            # conveying errors to the clients
-            if the_dict['cod'] == "200" or the_dict['cod'] == 200:
-                pass
-            else:
-                if the_dict['cod'] == "404" or the_dict['cod'] == 404:
-                    print("OWM API: data not found")
-                    return None
-                else:
-                    raise exceptions.APIResponseError("OWM API: error - response payload", the_dict['cod'])
-
-        # Handle the case when no results are found
-        if 'count' in the_dict and the_dict['count'] == "0":
-            return []
-        if 'cnt' in the_dict and the_dict['cnt'] == 0:
-            return []
-        if 'list' in the_dict:
-            return [Observation.from_dict(item) for item in the_dict['list']]
-
-        # no way out..
-        raise exceptions.ParseAPIResponseError(''.join([__name__, ': impossible to read JSON data']))
+        pass

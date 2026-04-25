@@ -151,9 +151,7 @@ class Weather:
         :raises: ValueError
 
         """
-        if self.sset_time is None:
-            return None
-        return formatting.timeformat(self.sset_time, timeformat)
+        pass
 
     def sunrise_time(self, timeformat='unix'):
         """Returns the GMT time of sunrise. Can be `None` in case of polar nights.
@@ -167,9 +165,7 @@ class Weather:
         :raises: ValueError
 
         """
-        if self.srise_time is None:
-            return None
-        return formatting.timeformat(self.srise_time, timeformat)
+        pass
 
     def wind(self, unit='meters_sec'):
         """Returns a dict containing wind info
@@ -236,12 +232,7 @@ class Weather:
         :raises: ValueError when unknown pressure units are provided
 
         """
-        if unit == 'hPa':
-            return self.pressure
-        elif unit == 'inHg':
-            return measurables.metric_pressure_dict_to_inhg(self.pressure)
-        else:
-            raise ValueError('Invalid value for target pressure unit')
+        pass
 
     def visibility(self, unit='meters'):
         """
@@ -254,14 +245,7 @@ class Weather:
         :raises: ValueError when unknown visibility units are provided
 
         """
-        if unit == 'meters':
-            return self.visibility_distance
-        elif unit == 'kilometers':
-            return measurables.visibility_distance_to(self.visibility_distance, 'kilometers')
-        elif unit == 'miles':
-            return measurables.visibility_distance_to(self.visibility_distance, 'miles')
-        else:
-            raise ValueError('Invalid value for target visibility distance unit')
+        pass
 
     def weather_icon_url(self, size=""):
         """Returns weather-related icon URL as a string.
@@ -272,8 +256,7 @@ class Weather:
         :returns: the icon URL.
 
         """
-        size = ("@" if size != "" else "") + size
-        return ICONS_BASE_URI % (self.weather_icon_name, size)
+        pass
 
     def __repr__(self):
         return "<%s.%s - reference_time=%s, status=%s, detailed_status=%s>" % (
@@ -505,34 +488,7 @@ class Weather:
             *APIResponseError* if the input dict an HTTP status error
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-        # Check if server returned errors: this check overcomes the lack of use
-        # of HTTP error status codes by the OWM API 3.0. This mechanism is
-        # supposed to be deprecated as soon as the API fully adopts HTTP for
-        # conveying errors to the clients
-        if 'message' in the_dict and 'cod' in the_dict:
-            if the_dict['cod'] == "404":
-                print("OWM API: data not found - response payload: " + \
-                      json.dumps(the_dict))
-                return None
-            elif the_dict['cod'] != "200":
-                raise exceptions.APIResponseError(
-                    "OWM API: error - response payload: " + json.dumps(the_dict), the_dict['cod'])
-        # Handle the case when no results are found
-        if 'cnt' in the_dict and the_dict['cnt'] == "0":
-            return []
-        else:
-            if 'list' in the_dict:
-                try:
-                    return [Weather.from_dict(item) for item in the_dict['list']]
-                except KeyError:
-                    raise exceptions.ParseAPIResponseError(
-                        ''.join([__name__, ': impossible to read weather info from input data'])
-                    )
-            else:
-                raise exceptions.ParseAPIResponseError(
-                    ''.join([__name__, ': impossible to read weather list from input data']))
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary

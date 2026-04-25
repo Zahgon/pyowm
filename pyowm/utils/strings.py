@@ -11,8 +11,7 @@ def obfuscate_API_key(API_key):
     :param API_key: input string
     :return: str
     """
-    if API_key is not None:
-        return (len(API_key)-8)*'*'+API_key[-8:]
+    pass
 
 
 def class_from_dotted_path(dotted_path):
@@ -25,7 +24,4 @@ def class_from_dotted_path(dotted_path):
     :type dotted_path: str
     :return: a `type` object
     """
-    assert isinstance(dotted_path, str), 'A string must be provided'
-    tokens = dotted_path.split('.')
-    modpath, class_name = '.'.join(tokens[:-1]), tokens[-1]
-    return getattr(importlib.import_module(modpath), class_name)
+    pass

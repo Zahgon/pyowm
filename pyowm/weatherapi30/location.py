@@ -48,9 +48,7 @@ class Location:
         :returns: a ``pyowm.utils.geo.Point`` instance
 
         """
-        if self.lon is None or self.lat is None:
-            return None
-        return geo.Point(self.lon, self.lat)
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

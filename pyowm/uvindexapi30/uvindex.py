@@ -8,16 +8,7 @@ from pyowm.weatherapi30 import location
 
 def uv_intensity_to_exposure_risk(uv_intensity):
     # According to figures in: https://en.wikipedia.org/wiki/Ultraviolet_index
-    if 0.0 <= uv_intensity < 2.9:
-        return 'low'
-    elif 2.9 <= uv_intensity < 5.9:
-        return 'moderate'
-    elif 5.9 <= uv_intensity <  7.9:
-        return 'high'
-    elif 7.9 <= uv_intensity < 10.9:
-        return 'very high'
-    else:
-        return 'extreme'
+    pass
 
 
 class UVIndex:
@@ -81,7 +72,7 @@ class UVIndex:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.rec_time, timeformat)
+        pass
 
     def get_exposure_risk(self):
         """
@@ -89,7 +80,7 @@ class UVIndex:
         for the average adult on this UV observation
         :return: str
         """
-        return uv_intensity_to_exposure_risk(self.value)
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

@@ -26,7 +26,7 @@ class GeocodingManager:
         self.http_client = HttpClient(API_key, config, ROOT_GEOCODING_API_URL)
 
     def geocoding_api_version(self):
-        return GEOCODING_API_VERSION
+        pass
 
     def geocode(self, toponym, country=None, state_code=None, limit=None):
         """
@@ -44,42 +44,10 @@ class GeocodingManager:
         :raises: *AssertionError*, *ValueError*, *APIRequestError*
 
         """
-        assert toponym, 'Toponym must be specified'
-        if country is not None and len(country) != 2:
-            raise ValueError("Country must be a 2-char string")
-        if state_code is not None and len(state_code) != 2:
-            raise ValueError("State Code must be a 2-char string")
-        if limit is not None:
-            assert isinstance(limit, int)
-            assert limit > 0
-
-        query = toponym
-        if state_code is not None:
-            query += ',' + state_code
-        if country is not None:
-            query += ',' + country
-
-        params = {'q': query}
-
-        if limit is not None:
-            params['limit'] = limit
-
-        _, json_data = self.http_client.get_json(DIRECT_GEOCODING_URI, params=params)
-        return [Location.from_dict(item) for item in json_data]
+        pass
 
     def reverse_geocode(self, lat, lon, limit=None):
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        if limit is not None:
-            assert isinstance(limit, int)
-            assert limit > 0
-
-        params = {'lat': lat, 'lon': lon}
-        if limit is not None:
-            params['limit'] = limit
-
-        _, json_data = self.http_client.get_json(REVERSE_GEOCODING_URI, params=params)
-        return [Location.from_dict(item) for item in json_data]
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)

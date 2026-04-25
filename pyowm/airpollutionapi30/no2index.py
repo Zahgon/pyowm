@@ -73,7 +73,7 @@ class NO2Index:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.rec_time, timeformat)
+        pass
 
     def get_sample_by_label(self, label):
         """
@@ -84,10 +84,7 @@ class NO2Index:
         :returns: dict or `None`
 
         """
-        for sample in self.no2_samples:
-            if sample['label'] == label:
-                return sample
-        return None
+        pass
 
     def is_forecast(self):
         """
@@ -95,8 +92,7 @@ class NO2Index:
         to the current date
         :return: bool
         """
-        return timestamps.now(timeformat='unix') < \
-               self.reference_time(timeformat='unix')
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):

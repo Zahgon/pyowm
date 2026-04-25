@@ -31,9 +31,7 @@ class Buffer:
         :raises: ValueError
 
         """
-        if self.created_at is None:
-            return None
-        return formatting.timeformat(self.created_at, timeformat)
+        pass
 
     def append(self, measurement):
         """
@@ -52,8 +50,7 @@ class Buffer:
         :param the_dict: dict
 
         """
-        m = Measurement.from_dict(the_dict)
-        self.append(m)
+        pass
 
     def append_from_json(self, json_string):
         """
@@ -62,29 +59,28 @@ class Buffer:
         :param json_string: the JSON formatted string
 
         """
-        a_dict = json.loads(json_string)
-        self.append_from_dict(a_dict)
+        pass
 
     def empty(self):
         """
         Drops all measurements of this buffer instance
 
         """
-        self.measurements = []
+        pass
 
     def sort_chronologically(self):
         """
         Sorts the measurements of this buffer in chronological order
 
         """
-        self.measurements.sort(key=lambda m: m.timestamp)
+        pass
 
     def sort_reverse_chronologically(self):
         """
         Sorts the measurements of this buffer in reverse chronological order
 
         """
-        self.measurements.sort(key=lambda m: m.timestamp, reverse=True)
+        pass
 
     def __len__(self):
         return len(self.measurements)

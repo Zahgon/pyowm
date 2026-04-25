@@ -31,7 +31,7 @@ class StationsManager:
         self.http_client = HttpClient(API_key, config, ROOT_STATIONS_API_URL)
 
     def stations_api_version(self):
-        return STATIONS_API_VERSION
+        pass
 
     # STATIONS Methods
 
@@ -42,12 +42,7 @@ class StationsManager:
         :returns: list of *pyowm.stationsapi30.station.Station* objects
 
         """
-
-        status, data = self.http_client.get_json(
-            STATIONS_URI,
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
-        return [Station.from_dict(item) for item in data]
+        pass
 
     def get_station(self, id):
         """
@@ -58,11 +53,7 @@ class StationsManager:
         :returns: a *pyowm.stationsapi30.station.Station* object
 
         """
-        status, data = self.http_client.get_json(
-            NAMED_STATION_URI % str(id),
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
-        return Station.from_dict(data)
+        pass
 
     def create_station(self, external_id, name, lat, lon, alt=None):
         """
@@ -80,23 +71,7 @@ class StationsManager:
         :type alt: float
         :returns: the new *pyowm.stationsapi30.station.Station* object
         """
-        assert external_id is not None
-        assert name is not None
-        assert lon is not None
-        assert lat is not None
-        if lon < -180.0 or lon > 180.0:
-            raise ValueError("'lon' value must be between -180 and 180")
-        if lat < -90.0 or lat > 90.0:
-            raise ValueError("'lat' value must be between -90 and 90")
-        if alt is not None and alt < 0.0:
-            raise ValueError("'alt' value must not be negative")
-        status, payload = self.http_client.post(
-            STATIONS_URI,
-            params={'appid': self.API_key},
-            data=dict(external_id=external_id, name=name, lat=lat,
-                      lon=lon, alt=alt),
-            headers={'Content-Type': 'application/json'})
-        return Station.from_dict(payload)
+        pass
 
     def update_station(self, station):
         """
@@ -107,13 +82,7 @@ class StationsManager:
         :type station: *pyowm.stationsapi30.station.Station*
         :returns: `None` if update is successful, an exception otherwise
         """
-        assert station.id is not None
-        status, _ = self.http_client.put(
-            NAMED_STATION_URI % str(station.id),
-            params={'appid': self.API_key},
-            data=dict(external_id=station.external_id, name=station.name,
-                      lat=station.lat, lon=station.lon, alt=station.alt),
-            headers={'Content-Type': 'application/json'})
+        pass
 
     def delete_station(self, station):
         """
@@ -125,11 +94,7 @@ class StationsManager:
         :type station: *pyowm.stationsapi30.station.Station*
         :returns: `None` if deletion is successful, an exception otherwise
         """
-        assert station.id is not None
-        status, _ = self.http_client.delete(
-            NAMED_STATION_URI % str(station.id),
-            params={'appid': self.API_key},
-            headers={'Content-Type': 'application/json'})
+        pass
 
     # Measurements-related methods
 
@@ -142,13 +107,7 @@ class StationsManager:
         :type measurement: *pyowm.stationsapi30.measurement.Measurement* instance
         :returns: `None` if creation is successful, an exception otherwise
         """
-        assert measurement is not None
-        assert measurement.station_id is not None
-        status, _ = self.http_client.post(
-            MEASUREMENTS_URI,
-            params={'appid': self.API_key},
-            data=[self._structure_dict(measurement)],
-            headers={'Content-Type': 'application/json'})
+        pass
 
     def send_measurements(self, list_of_measurements):
         """
@@ -161,14 +120,7 @@ class StationsManager:
           instances
         :returns: `None` if creation is successful, an exception otherwise
         """
-        assert list_of_measurements is not None
-        assert all(m.station_id is not None for m in list_of_measurements)
-        msmts = [self._structure_dict(m) for m in list_of_measurements]
-        status, _ = self.http_client.post(
-            MEASUREMENTS_URI,
-            params={'appid': self.API_key},
-            data=msmts,
-            headers={'Content-Type': 'application/json'})
+        pass
 
     def get_measurements(self, station_id, aggregated_on, from_timestamp,
                          to_timestamp, limit=100):
@@ -192,27 +144,7 @@ class StationsManager:
         :returns: list of *pyowm.stationsapi30.measurement.AggregatedMeasurement*
           objects
         """
-        assert station_id is not None
-        assert aggregated_on is not None
-        assert from_timestamp is not None
-        assert from_timestamp > 0
-        assert to_timestamp is not None
-        assert to_timestamp > 0
-        if to_timestamp < from_timestamp:
-            raise ValueError("End timestamp can't be earlier than begin timestamp")
-        assert isinstance(limit, int)
-        assert limit >= 0
-        query = {'appid': self.API_key,
-                 'station_id': station_id,
-                 'type': aggregated_on,
-                 'from': from_timestamp,
-                 'to': to_timestamp,
-                 'limit': limit}
-        status, data = self.http_client.get_json(
-            MEASUREMENTS_URI,
-            params=query,
-            headers={'Content-Type': 'application/json'})
-        return [AggregatedMeasurement.from_dict(item) for item in data]
+        pass
 
     def send_buffer(self, buffer):
         """
@@ -224,50 +156,10 @@ class StationsManager:
         :type buffer: *pyowm.stationsapi30.buffer.Buffer* instance
         :returns: `None` if creation is successful, an exception otherwise
         """
-        assert buffer is not None
-        msmts = [self._structure_dict(m) for m in buffer.measurements]
-        status, _ = self.http_client.post(
-            MEASUREMENTS_URI,
-            params={'appid': self.API_key},
-            data=msmts,
-            headers={'Content-Type': 'application/json'})
+        pass
 
     def _structure_dict(self, measurement):
-        d = measurement.to_dict()
-        return {
-            'station_id': d['station_id'],
-            'dt': d['timestamp'],
-            'temperature': d['temperature'],
-            'wind_speed': d['wind_speed'],
-            'wind_gust': d['wind_gust'],
-            'wind_deg': d['wind_deg'],
-            'pressure': d['pressure'],
-            'humidity': d['humidity'],
-            'rain_1h': d['rain_1h'],
-            'rain_6h': d['rain_6h'],
-            'rain_24h': d['rain_24h'],
-            'snow_1h': d['snow_1h'],
-            'snow_6h': d['snow_6h'],
-            'snow_24h': d['snow_24h'],
-            'dew_point': d['dew_point'],
-            'humidex': d['humidex'],
-            'heat_index': d['heat_index'],
-            'visibility_distance': d['visibility_distance'],
-            'visibility_prefix': d['visibility_prefix'],
-            'clouds': [
-                dict(distance=d['clouds_distance']),
-                dict(condition=d['clouds_condition']),
-                dict(cumulus=d['clouds_cumulus']),
-            ],
-            'weather': [
-                dict(precipitation=d['weather_precipitation']),
-                dict(descriptor=d['weather_descriptor']),
-                dict(intensity=d['weather_intensity']),
-                dict(proximity=d['weather_proximity']),
-                dict(obscuration=d['weather_obscuration']),
-                dict(other=d['weather_other']),
-            ],
-        }
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)

@@ -38,19 +38,13 @@ class HttpRequestBuilder:
         self._set_proxies()
 
     def _set_schema(self):
-        use_ssl = self.config['connection']['use_ssl']
-        self.schema = 'https' if use_ssl else 'http'
+        pass
 
     def _set_subdomain(self):
-        if self.has_subdomains:
-            st = self.config['subscription_type']
-            self.subdomain = st.subdomain
+        pass
 
     def _set_proxies(self):
-        if self.config['connection']['use_proxy']:
-            self.proxies = self.config['proxies']
-        else:
-            self.proxies = {}
+        pass
 
     def with_path(self, path_uri_token):
         assert isinstance(path_uri_token, str)
@@ -63,13 +57,7 @@ class HttpRequestBuilder:
         return self
 
     def with_header(self, key, value):
-        assert isinstance(key, str)
-        try:
-            json.dumps(value)
-        except TypeError:
-            raise ValueError('Header value is not JSON serializable')
-        self.headers.update({key: value})
-        return self
+        pass
 
     def with_query_params(self, query_params):
         assert isinstance(query_params, dict)
@@ -163,145 +151,20 @@ class HttpClient:
 
     def get_png(self, path, params=None, headers=None):
         # check URL fromt the metaimage: if it looks like a complete URL, use that one (I know, it's a hack...)
-        try:
-            partial_path = path.split(self.root_uri)[1].lstrip('/')
-        except:
-            partial_path = path
-
-        builder = HttpRequestBuilder(self.root_uri, self.api_key, self.config, has_subdomains=self.admits_subdomains)\
-            .with_path(partial_path)\
-            .with_api_key()\
-            .with_language()\
-            .with_query_params(params if params is not None else dict())\
-            .with_headers(headers if headers is not None else dict())\
-            .with_header('Accept', ImageTypeEnum.PNG.mime_type)
-        url, params, headers, proxies = builder.build()
-        try:
-            resp = self.http.get(url, stream=True, params=params, headers=headers, proxies=proxies,
-                                timeout=self.config['connection']['timeout_secs'],
-                                verify=self.config['connection']['verify_ssl_certs'])
-        except requests.exceptions.SSLError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.ConnectionError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.Timeout:
-            raise exceptions.TimeoutError('API call timeouted')
-        HttpClient.check_status_code(resp.status_code, resp.text)
-        try:
-            return resp.status_code, resp.content
-        except:
-            raise exceptions.ParseAPIResponseError('Impossible to parse'
-                                                          'API response data')
+        pass
 
     def get_geotiff(self, path, params=None, headers=None):
         # check URL fromt the metaimage: if it looks like a complete URL, use that one (I know, it's a hack...)
-        try:
-            partial_path = path.split(self.root_uri)[1].lstrip('/')
-        except:
-            partial_path = path
-
-        builder = HttpRequestBuilder(self.root_uri, self.api_key, self.config, has_subdomains=self.admits_subdomains)\
-            .with_path(partial_path)\
-            .with_api_key()\
-            .with_language()\
-            .with_query_params(params if params is not None else dict())\
-            .with_headers(headers if headers is not None else dict())\
-            .with_header('Accept', ImageTypeEnum.GEOTIFF.mime_type)
-        url, params, headers, proxies = builder.build()
-        try:
-            resp = self.http.get(url, stream=True, params=params, headers=headers, proxies=proxies,
-                                timeout=self.config['connection']['timeout_secs'],
-                                verify=self.config['connection']['verify_ssl_certs'])
-        except requests.exceptions.SSLError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.ConnectionError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.Timeout:
-            raise exceptions.TimeoutError('API call timeouted')
-        HttpClient.check_status_code(resp.status_code, resp.text)
-        try:
-            return resp.status_code, resp.content
-        except:
-            raise exceptions.ParseAPIResponseError('Impossible to parse'
-                                                          'API response data')
+        pass
 
     def post(self, path, params=None, data=None, headers=None):
-        builder = HttpRequestBuilder(self.root_uri, self.api_key, self.config, has_subdomains=self.admits_subdomains)\
-            .with_path(path)\
-            .with_api_key()\
-            .with_language()\
-            .with_query_params(params if params is not None else dict())\
-            .with_headers(headers if headers is not None else dict())
-        url, params, headers, proxies = builder.build()
-        try:
-            resp = self.http.post(url, params=params, json=data, headers=headers, proxies=proxies,
-                                 timeout=self.config['connection']['timeout_secs'],
-                                 verify=self.config['connection']['verify_ssl_certs'])
-        except requests.exceptions.SSLError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.ConnectionError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.Timeout:
-            raise exceptions.TimeoutError('API call timeouted')
-        HttpClient.check_status_code(resp.status_code, resp.text)
-        # this is a defense against OWM API responses containing an empty body!
-        try:
-            json_data = resp.json()
-        except:
-            json_data = {}
-        return resp.status_code, json_data
+        pass
 
     def put(self, path, params=None, data=None, headers=None):
-        builder = HttpRequestBuilder(self.root_uri, self.api_key, self.config, has_subdomains=self.admits_subdomains)\
-            .with_path(path)\
-            .with_api_key()\
-            .with_language()\
-            .with_query_params(params if params is not None else dict())\
-            .with_headers(headers if headers is not None else dict())
-        url, params, headers, proxies = builder.build()
-        try:
-            resp = self.http.put(url, params=params, json=data, headers=headers, proxies=proxies,
-                                timeout=self.config['connection']['timeout_secs'],
-                                verify=self.config['connection']['verify_ssl_certs'])
-        except requests.exceptions.SSLError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.ConnectionError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.Timeout:
-            raise exceptions.TimeoutError('API call timeouted')
-        HttpClient.check_status_code(resp.status_code, resp.text)
-        # this is a defense against OWM API responses containing an empty body!
-        try:
-            json_data = resp.json()
-        except:
-            json_data = {}
-        return resp.status_code, json_data
+        pass
 
     def delete(self, path, params=None, data=None, headers=None):
-        builder = HttpRequestBuilder(self.root_uri, self.api_key, self.config, has_subdomains=self.admits_subdomains)\
-            .with_path(path)\
-            .with_api_key()\
-            .with_language()\
-            .with_query_params(params if params is not None else dict())\
-            .with_headers(headers if headers is not None else dict())
-        url, params, headers, proxies = builder.build()
-        try:
-            resp = self.http.delete(url, params=params, json=data, headers=headers, proxies=proxies,
-                                   timeout=self.config['connection']['timeout_secs'],
-                                   verify=self.config['connection']['verify_ssl_certs'])
-        except requests.exceptions.SSLError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.ConnectionError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.Timeout:
-            raise exceptions.TimeoutError('API call timeouted')
-        HttpClient.check_status_code(resp.status_code, resp.text)
-        # this is a defense against OWM API responses containing an empty body!
-        try:
-            json_data = resp.json()
-        except:
-            json_data = None
-        return resp.status_code, json_data
+        pass
 
     @classmethod
     def check_status_code(cls, status_code, payload):
