@@ -17,10 +17,7 @@ class SubscriptionTypeEnum:
 
     @classmethod
     def lookup_by_name(cls, name):
-        for i in SubscriptionTypeEnum.items():
-            if i.name == name:
-                return i
-        raise ValueError('Subscription type not allowed')
+        pass
 
     @classmethod
     def items(cls):
@@ -29,13 +26,7 @@ class SubscriptionTypeEnum:
         :return: list of `pyowm.commons.enums.SubscriptionType`
 
         """
-        return [
-            cls.FREE,
-            cls.STARTUP,
-            cls.DEVELOPER,
-            cls.PROFESSIONAL,
-            cls.ENTERPRISE
-        ]
+        pass
 
     def __repr__(self):
         return "<%s.%s>" % (__name__, self.__class__.__name__)
@@ -55,10 +46,7 @@ class ImageTypeEnum:
 
     @classmethod
     def lookup_by_name(cls, name):
-        for i in ImageTypeEnum.items():
-            if i.name == name:
-                return i
-        return None
+        pass
 
     @classmethod
     def items(cls):
@@ -67,10 +55,7 @@ class ImageTypeEnum:
         :return: list of `pyowm.commons.enums.ImageType`
 
         """
-        return [
-            cls.PNG,
-            cls.GEOTIFF
-        ]
+        pass
 
     def __repr__(self):
         return "<%s.%s>" % (__name__, self.__class__.__name__)

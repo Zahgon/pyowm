@@ -32,17 +32,7 @@ class NO2Index:
 
     def __init__(self, reference_time, location, interval, no2_samples,
                  reception_time):
-        if reference_time < 0:
-            raise ValueError("'reference_time' must be greater than 0")
-        self.ref_time = reference_time
-        self.location = location
-        self.interval = interval
-        if not isinstance(no2_samples, list):
-            raise ValueError("'no2_samples' must be a list")
-        self.no2_samples = no2_samples
-        if reception_time < 0:
-            raise ValueError("'reception_time' must be greater than 0")
-        self.rec_time = reception_time
+        pass
 
     def reference_time(self, timeformat='unix'):
         """
@@ -57,7 +47,7 @@ class NO2Index:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.ref_time, timeformat)
+        pass
 
     def reception_time(self, timeformat='unix'):
         """
@@ -106,31 +96,7 @@ class NO2Index:
         :raises: *ParseAPIResponseError* if it is impossible to find or parse the data needed to build the result
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-        try:
-            # -- reference time (strip away Z and T on ISO8601 format)
-            t = the_dict['time'].replace('Z', '+00:00').replace('T', ' ')
-            reference_time = formatting.ISO8601_to_UNIXtime(t)
-
-            # -- reception time (now)
-            reception_time = timestamps.now('unix')
-
-            # -- location
-            lon = float(the_dict['location']['longitude'])
-            lat = float(the_dict['location']['latitude'])
-            place = location.Location(None, lon, lat, None)
-
-            # -- CO samples
-            no2_samples = [dict(label=key,
-                                precision=the_dict['data'][key]['precision'],
-                                value=the_dict['data'][key]['value']) for key in the_dict['data']]
-
-        except KeyError:
-            raise exceptions.ParseAPIResponseError(
-                      ''.join([__name__, ': impossible to parse NO2Index']))
-
-        return NO2Index(reference_time, place, None, no2_samples, reception_time)
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary
@@ -138,11 +104,7 @@ class NO2Index:
         :returns: a `dict`
 
         """
-        return {"reference_time": self.ref_time,
-                "location": self.location.to_dict(),
-                "interval": self.interval,
-                "no2_samples": self.no2_samples,
-                "reception_time": self.rec_time}
+        pass
 
     def __repr__(self):
         return "<%s.%s - reference time=%s, reception time=%s, location=%s, " \

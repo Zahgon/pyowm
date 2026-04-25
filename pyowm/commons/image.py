@@ -17,10 +17,7 @@ class Image:
     """
 
     def __init__(self, data, image_type=None):
-        self.data = data
-        if image_type is not None:
-            assert isinstance(image_type, ImageType)
-        self.image_type = image_type
+        pass
 
     def persist(self, path_to_file):
         """

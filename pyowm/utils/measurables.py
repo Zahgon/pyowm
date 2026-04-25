@@ -37,15 +37,7 @@ def kelvin_dict_to(d, target_temperature_unit):
     :raises: *ValueError* when unknown target temperature units are provided
 
     """
-    if target_temperature_unit == 'kelvin':
-        return d
-    elif target_temperature_unit == 'celsius':
-        return {key: kelvin_to_celsius(d[key]) for key in d}
-    elif target_temperature_unit == 'fahrenheit':
-        return {key: kelvin_to_fahrenheit(d[key]) for key in d}
-    else:
-        raise ValueError("Invalid value for target temperature conversion \
-                         unit")
+    pass
 
 
 def kelvin_to_celsius(kelvintemp):
@@ -58,11 +50,7 @@ def kelvin_to_celsius(kelvintemp):
     :raises: *TypeError* when bad argument types are provided
 
     """
-    if kelvintemp < 0:
-        raise ValueError(__name__ +
-                         ": negative temperature values not allowed")
-    celsiustemp = kelvintemp - KELVIN_OFFSET
-    return float("{0:.2f}".format(celsiustemp))
+    pass
 
 
 def kelvin_to_fahrenheit(kelvintemp):
@@ -75,12 +63,7 @@ def kelvin_to_fahrenheit(kelvintemp):
 
     :raises: *TypeError* when bad argument types are provided
     """
-    if kelvintemp < 0:
-        raise ValueError(__name__ +
-                         ": negative temperature values not allowed")
-    fahrenheittemp = (kelvintemp - KELVIN_OFFSET) * \
-        FAHRENHEIT_DEGREE_SCALE + FAHRENHEIT_OFFSET
-    return float("{0:.2f}".format(fahrenheittemp))
+    pass
 
 
 def metric_wind_dict_to_imperial(d):
@@ -95,13 +78,7 @@ def metric_wind_dict_to_imperial(d):
         to miles/hour
 
     """
-    result = {}
-    for key, value in d.items():
-        if key != 'deg':  # do not convert wind degree
-            result[key] = value * MILES_PER_HOUR_FOR_ONE_METER_PER_SEC
-        else:
-            result[key] = value
-    return result
+    pass
 
 
 def metric_wind_dict_to_km_h(d):
@@ -115,13 +92,7 @@ def metric_wind_dict_to_km_h(d):
         to km/hour
 
     """
-    result = {}
-    for key, value in d.items():
-        if key != 'deg':  # do not convert wind degree
-            result[key] = value * KM_PER_HOUR_FOR_ONE_METER_PER_SEC
-        else:
-            result[key] = value
-    return result
+    pass
 
 
 def metric_wind_dict_to_knots(d):
@@ -135,13 +106,7 @@ def metric_wind_dict_to_knots(d):
         to km/hour
 
     """
-    result = {}
-    for key, value in d.items():
-        if key != 'deg':  # do not convert wind degree
-            result[key] = value * KNOTS_FOR_ONE_METER_PER_SEC
-        else:
-            result[key] = value
-    return result
+    pass
 
 
 def metric_wind_dict_to_beaufort(d):
@@ -157,39 +122,7 @@ def metric_wind_dict_to_beaufort(d):
         to Beaufort level
 
     """
-    result = {}
-    for key, value in d.items():
-        if key != 'deg':  # do not convert wind degree
-            if value <= 0.2:
-                bf = 0
-            elif 0.2 < value <= 1.5:
-                bf = 1
-            elif 1.5 < value <= 3.3:
-                bf = 2
-            elif 3.3 < value <= 5.4:
-                bf = 3
-            elif 5.4 < value <= 7.9:
-                bf = 4
-            elif 7.9 < value <= 10.7:
-                bf = 5
-            elif 10.7 < value <= 13.8:
-                bf = 6
-            elif 13.8 < value <= 17.1:
-                bf = 7
-            elif 17.1 < value <= 20.7:
-                bf = 8
-            elif 20.7 < value <= 24.4:
-                bf = 9
-            elif 24.4 < value <= 28.4:
-                bf = 10
-            elif 28.4 < value <= 32.6:
-                bf = 11
-            else:
-                bf = 12
-            result[key] = bf
-        else:
-            result[key] = value
-    return result
+    pass
 
 
 def metric_pressure_dict_to_inhg(d):

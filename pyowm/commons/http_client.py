@@ -19,23 +19,7 @@ class HttpRequestBuilder:
     A stateful HTTP URL, params and headers builder with a fluent interface
     """
     def __init__(self, root_uri_token, api_key, config, has_subdomains=True):
-        assert isinstance(root_uri_token, str)
-        self.root = root_uri_token
-        assert isinstance(api_key, str)
-        self.api_key = api_key
-        assert isinstance(config, dict)
-        self.config = config
-        assert isinstance(has_subdomains, bool)
-        self.has_subdomains = has_subdomains
-        self.schema = None
-        self.subdomain = None
-        self.proxies = None
-        self.path = None
-        self.params = {}
-        self.headers = {}
-        self._set_schema()
-        self._set_subdomain()
-        self._set_proxies()
+        pass
 
     def _set_schema(self):
         pass
@@ -47,38 +31,25 @@ class HttpRequestBuilder:
         pass
 
     def with_path(self, path_uri_token):
-        assert isinstance(path_uri_token, str)
-        self.path = path_uri_token
-        return self
+        pass
 
     def with_headers(self, headers):
-        assert isinstance(headers, dict)
-        self.headers.update(headers)
-        return self
+        pass
 
     def with_header(self, key, value):
         pass
 
     def with_query_params(self, query_params):
-        assert isinstance(query_params, dict)
-        self.params.update(query_params)
-        return self
+        pass
 
     def with_api_key(self):
-        self.params['APPID'] = self.api_key
-        return self
+        pass
 
     def with_language(self):
-        self.params['lang'] = self.config['language']
-        return self
+        pass
 
     def build(self):
-        if self.has_subdomains:
-            return self.URL_TEMPLATE_WITH_SUBDOMAINS.format(self.schema, self.subdomain, self.root, self.path), \
-                   self.params, self.headers, self.proxies
-        else:
-            return self.URL_TEMPLATE_WITHOUT_SUBDOMAINS.format(self.schema, self.root, self.path), \
-                   self.params, self.headers, self.proxies
+        pass
 
     def __repr__(self):
         return "<%s.%s>" % (__name__, self.__class__.__name__)
@@ -100,54 +71,10 @@ class HttpClient:
     """
 
     def __init__(self, api_key, config, root_uri, admits_subdomains=True):
-        assert isinstance(api_key, str)
-        self.api_key = api_key
-        assert isinstance(config, dict)
-        self.config = config
-        assert isinstance(root_uri, str)
-        self.root_uri = root_uri
-        assert isinstance(admits_subdomains, bool)
-        self.admits_subdomains = admits_subdomains
-
-        if self.config['connection']['max_retries'] is not None:
-            # this adapter tells how to perform retries
-            self.session_adapter = HTTPAdapter(
-                max_retries=Retry(
-                    total=self.config['connection']['max_retries'],
-                    status_forcelist=[429, 500, 502, 503, 504],
-                    allowed_methods =["HEAD", "GET", "PUT", "DELETE", "OPTIONS", "TRACE"]
-                )
-            )
-            # this is the adapted requests client
-            self.http = requests.Session()
-            self.http.mount("https://", self.session_adapter)
-            self.http.mount("http://", self.session_adapter)
-        else:
-            self.http = requests
+        pass
 
     def get_json(self, path, params=None, headers=None):
-        builder = HttpRequestBuilder(self.root_uri, self.api_key, self.config, has_subdomains=self.admits_subdomains)\
-            .with_path(path)\
-            .with_api_key()\
-            .with_language()\
-            .with_query_params(params if params is not None else dict())\
-            .with_headers(headers if headers is not None else dict())
-        url, params, headers, proxies = builder.build()
-        try:
-            resp = self.http.get(url, params=params, headers=headers, proxies=proxies,
-                                timeout=self.config['connection']['timeout_secs'],
-                                verify=self.config['connection']['verify_ssl_certs'])
-        except requests.exceptions.SSLError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.ConnectionError as e:
-            raise exceptions.InvalidSSLCertificateError(str(e))
-        except requests.exceptions.Timeout:
-            raise exceptions.TimeoutError('API call timed out')
-        HttpClient.check_status_code(resp.status_code, resp.text)
-        try:
-            return resp.status_code, resp.json()
-        except:
-            raise exceptions.ParseAPIResponseError('Impossible to parse API response data')
+        pass
 
     def get_png(self, path, params=None, headers=None):
         # check URL fromt the metaimage: if it looks like a complete URL, use that one (I know, it's a hack...)
@@ -168,16 +95,7 @@ class HttpClient:
 
     @classmethod
     def check_status_code(cls, status_code, payload):
-        if status_code < 400:
-            return
-        if status_code == 400 or status_code not in [401, 404, 502]:
-            raise exceptions.APIRequestError(payload)
-        elif status_code == 401:
-            raise exceptions.UnauthorizedError('Invalid API Key provided')
-        elif status_code == 404:
-            raise exceptions.NotFoundError('Unable to find the resource')
-        else:
-            raise exceptions.BadGatewayError('Unable to contact the upstream server')
+        pass
 
     def __repr__(self):
         return "<%s.%s - root: %s>" % (__name__, self.__class__.__name__, self.root_uri)

@@ -30,12 +30,7 @@ class AgroManager:
     """
 
     def __init__(self, API_key, config):
-        assert isinstance(API_key, str), 'You must provide a valid API Key'
-        self.API_key = API_key
-        assert isinstance(config, dict)
-        self.http_client = HttpClient(API_key, config, ROOT_AGRO_API)
-        self.geotiff_downloader_http_client = HttpClient(self.API_key, config, ROOT_DOWNLOAD_GEOTIFF_API)
-        self.png_downloader_http_client = HttpClient(self.API_key, config, ROOT_DOWNLOAD_PNG_API)
+        pass
 
     def agro_api_version(self):
         pass

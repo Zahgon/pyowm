@@ -33,7 +33,7 @@ class CityIDRegistry:
         Factory method returning the default city ID registry
         :return: a `CityIDRegistry` instance
         """
-        return CityIDRegistry(CITY_ID_DB_PATH)
+        pass
 
     def __decompress_db_to_memory(self, sqlite_db_path: str):
         """

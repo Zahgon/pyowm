@@ -31,15 +31,7 @@ class Location:
     """
 
     def __init__(self, name, lon, lat, _id, country=None):
-        self.name = name
-        if lon is None or lat is None:
-            raise ValueError("Either 'lon' or 'lat' must be specified")
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        self.lon = float(lon)
-        self.lat = float(lat)
-        self.id = _id
-        self.country = country
+        pass
 
     def to_geopoint(self):
         """
@@ -62,33 +54,7 @@ class Location:
         :raises: *ParseAPIResponseError* if it is impossible to find or parse the data needed to build the result
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-        country = None
-        if 'sys' in the_dict and 'country' in the_dict['sys']:
-            country = the_dict['sys']['country']
-        data = the_dict['city'] if 'city' in the_dict else the_dict
-        name = data['name'] if 'name' in data else None
-        ID = int(data['id']) if 'id' in data else None
-        if 'coord' in data:
-            lon = data['coord'].get('lon', 0.0)
-            lat = data['coord'].get('lat', 0.0)
-        elif 'station' in data and 'coord' in data['station']:
-            if 'lon' in data['station']['coord']:
-                lon = data['station']['coord'].get('lon', 0.0)
-            elif 'lng' in data['station']['coord']:
-                lon = data['station']['coord'].get('lng', 0.0)
-            else:
-                lon = 0.0
-            lat = data['station']['coord'].get('lat', 0.0)
-        elif 'lat' in the_dict and 'lon' in the_dict:
-            lat = the_dict['lat']
-            lon = the_dict['lon']
-        else:
-            raise KeyError("Impossible to read geographical coordinates from JSON")
-        if 'country' in data:
-            country = data['country']
-        return Location(name, lon, lat, ID, country)
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary
@@ -96,10 +62,7 @@ class Location:
         :returns: a `dict`
 
         """
-        return {'name': self.name,
-                'coordinates': {'lon': self.lon, 'lat': self.lat},
-                'ID': self.id,
-                'country': self.country}
+        pass
 
     def __repr__(self):
         return "<%s.%s - id=%s, name=%s, lon=%s, lat=%s>" % (__name__, \

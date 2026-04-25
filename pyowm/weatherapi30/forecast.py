@@ -31,12 +31,7 @@ class Forecast:
     """
 
     def __init__(self, interval, reception_time, location, weathers):
-        self.interval = interval
-        if reception_time < 0:
-            raise ValueError("'reception_time' must be greater than 0")
-        self.rec_time = reception_time
-        self.location = location
-        self.weathers = weathers
+        pass
 
     def get(self, index):
         """
@@ -47,7 +42,7 @@ class Forecast:
         :type index: int
         :returns: a *Weather* object
         """
-        return self.weathers[index]
+        pass
 
     def reception_time(self, timeformat='unix'):
         """Returns the GMT time telling when the forecast was received
@@ -84,43 +79,7 @@ class Forecast:
             data needed to build the result, *APIResponseError* if the input dictionary embeds an HTTP status error
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('JSON data is None')
-        # Check if server returned errors: this check overcomes the lack of use
-        # of HTTP error status codes by the OWM API 3.0. This mechanism is
-        # supposed to be deprecated as soon as the API fully adopts HTTP for
-        # conveying errors to the clients
-        if 'message' in the_dict and 'cod' in the_dict:
-            if the_dict['cod'] == "404":
-                print("OWM API: data not found - response payload", the_dict['cod'])
-                return None
-            elif the_dict['cod'] != "200":
-                raise exceptions.APIResponseError("OWM API: error - response payload", the_dict['cod'])
-        try:
-            place = location.Location.from_dict(the_dict)
-        except KeyError:
-            raise exceptions.ParseAPIResponseError(''.join([__name__,
-                                                               ': impossible to read location info from JSON data']))
-        # Handle the case when no results are found
-        if 'count' in the_dict and the_dict['count'] == "0":
-            weathers = []
-        elif 'cnt' in the_dict and the_dict['cnt'] == 0:
-            weathers = []
-        else:
-            if 'list' in the_dict:
-                try:
-                    weathers = [weather.Weather.from_dict(item) \
-                                for item in the_dict['list']]
-                except KeyError:
-                    raise exceptions.ParseAPIResponseError(
-                          ''.join([__name__, ': impossible to read weather info from JSON data'])
-                                  )
-            else:
-                raise exceptions.ParseAPIResponseError(
-                          ''.join([__name__, ': impossible to read weather list from JSON data'])
-                          )
-        current_time = int(time.time())
-        return Forecast(None, current_time, place, weathers)
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary
@@ -128,10 +87,7 @@ class Forecast:
         :returns: a `dict`
 
         """
-        return {"interval": self.interval,
-               "reception_time": self.rec_time,
-               "location": self.location.to_dict(),
-               "weathers": [w.to_dict() for w in self]}
+        pass
 
     def __len__(self):
         return len(self.weathers)

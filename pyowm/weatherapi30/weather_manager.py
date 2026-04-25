@@ -26,11 +26,7 @@ class WeatherManager:
     """
 
     def __init__(self, API_key, config):
-        assert isinstance(API_key, str), 'You must provide a valid API Key'
-        self.API_key = API_key
-        assert isinstance(config, dict)
-        self.http_client = HttpClient(API_key, config, ROOT_WEATHER_API)
-        self.one_call_http_client = HttpClient(API_key, config, ONE_CALL_ROOT_URI)
+        pass
 
     def weather_api_version(self):
         pass
@@ -49,10 +45,7 @@ class WeatherManager:
             reached
         """
 
-        assert isinstance(name, str), "Value must be a string"
-        params = {'q': name}
-        _, json_data = self.http_client.get_json(OBSERVATION_URI, params=params)
-        return observation.Observation.from_dict(json_data)
+        pass
 
     def weather_at_coords(self, lat, lon):
         """
@@ -215,28 +208,7 @@ class WeatherManager:
             cannot be parsed, *APICallException* when OWM Weather API can not be
             reached
         """
-        assert isinstance(name, str), "Value must be a string"
-        assert isinstance(interval, str), "Interval must be a string"
-        if limit is not None:
-            assert isinstance(limit, int), "'limit' must be an int or None"
-            if limit < 1:
-                raise ValueError("'limit' must be None or greater than zero")
-        params = {'q': name}
-        if limit is not None:
-            params['cnt'] = limit
-        if interval == '3h':
-            uri = THREE_HOURS_FORECAST_URI
-        elif interval == 'daily':
-            uri = DAILY_FORECAST_URI
-        else:
-            raise ValueError("Unsupported time interval for forecast")
-        _, json_data = self.http_client.get_json(uri, params=params)
-        fc = forecast.Forecast.from_dict(json_data)
-        if fc is not None:
-            fc.interval = interval
-            return forecaster.Forecaster(fc)
-        else:
-            return None
+        pass
 
     def forecast_at_coords(self, lat, lon, interval, limit=None):
         """
@@ -382,16 +354,7 @@ class WeatherManager:
             cannot be parsed, *APICallException* when OWM Weather API can not be
             reached
         """
-        geo.assert_is_lon(lon)
-        geo.assert_is_lat(lat)
-        params = {'lon': lon, 'lat': lat}
-        for key , value in kwargs.items():
-            if key == 'exclude':
-                params['exclude'] = value
-            elif key == 'units':
-                params['units'] = value
-        _, json_data = self.one_call_http_client.get_json(ONE_CALL_URI, params=params)
-        return one_call.OneCall.from_dict(json_data)
+        pass
 
     def one_call_history(self, lat: Union[int, float], lon: Union[int, float], dt: int = None):
         """

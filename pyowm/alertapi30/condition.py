@@ -24,38 +24,14 @@ class Condition:
 
     """
     def __init__(self, weather_param, operator, amount, id=None):
-        assert weather_param is not None
-        assert isinstance(weather_param, str), "Value must be a string"
-        self.weather_param = weather_param
-
-        assert operator is not None
-        assert isinstance(operator, str), "Value must be a string"
-        self.operator = operator
-
-        assert amount is not None
-        assert isinstance(amount, (int, float))
-        self.amount = amount
-        self.id = id
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-        try:
-            weather_param = the_dict['name']
-            operator = the_dict['expression']
-            amount = the_dict['amount']
-            the_id = the_dict.get('_id', None)
-            return Condition(weather_param, operator, amount, id=the_id)
-        except KeyError as e:
-            raise exceptions.ParseAPIResponseError('Impossible to parse data: %s' % e)
+        pass
 
     def to_dict(self):
-        return {
-            'id': self.id,
-            'weather_param': self.weather_param,
-            'operator': self.operator,
-            'amount': self.amount}
+        pass
 
     def __repr__(self):
         return '<%s.%s - when %s %s %s>' % (__name__, self.__class__.__name__, self.weather_param,

@@ -23,15 +23,7 @@ class Tile:
     """
 
     def __init__(self, x, y, zoom, map_layer, image):
-        assert x >= 0, 'X tile coordinate cannot be negative'
-        self.x = x
-        assert y >= 0, 'Y tile coordinate cannot be negative'
-        self.y = y
-        assert zoom >= 0, 'Tile zoom level cannot be negative'
-        self.zoom = zoom
-        self.map_layer = map_layer
-        assert isinstance(image, Image), 'The provided image is in invalid format'
-        self.image = image
+        pass
 
     def persist(self, path_to_file):
         """

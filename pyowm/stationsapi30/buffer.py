@@ -14,10 +14,7 @@ class Buffer:
     measurements = None
 
     def __init__(self, station_id):
-        assert station_id is not None
-        self.station_id = station_id
-        self.created_at = timestamps.now(timeformat='unix')
-        self.measurements = []
+        pass
 
     def creation_time(self, timeformat='unix'):
         """Returns the UTC time of creation of this aggregated measurement
@@ -39,9 +36,7 @@ class Buffer:
         :param measurement: a ``measurement.Measurement`` instance
 
         """
-        assert isinstance(measurement, Measurement)
-        assert measurement.station_id == self.station_id
-        self.measurements.append(measurement)
+        pass
 
     def append_from_dict(self, the_dict):
         """

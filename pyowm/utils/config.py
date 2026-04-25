@@ -28,7 +28,7 @@ def get_default_config():
 
     :returns: the configuration `dict`
     """
-    return DEFAULT_CONFIG
+    pass
 
 
 def get_default_config_for_subscription_type(name):
@@ -39,10 +39,7 @@ def get_default_config_for_subscription_type(name):
     :type name: str
     :returns: the configuration `dict`
     """
-    assert isinstance(name, str)
-    config = get_default_config()
-    config['subscription_type'] = SubscriptionTypeEnum.lookup_by_name(name)
-    return config
+    pass
 
 
 def get_default_config_for_proxy(http_url, https_url):

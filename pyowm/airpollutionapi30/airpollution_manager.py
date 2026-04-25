@@ -23,15 +23,7 @@ class AirPollutionManager:
     """
 
     def __init__(self, API_key, config):
-        assert API_key is not None, 'You must provide a valid API Key'
-        self.API_key = API_key
-        assert isinstance(config, dict)
-        self.ap_client = airpollution_client.AirPollutionHttpClient(
-            API_key,
-            HttpClient(API_key, config, ROOT_POLLUTION_API_URL))
-        self.new_ap_client = airpollution_client.AirPollutionHttpClient(
-            API_key,
-            HttpClient(API_key, config, NEW_ROOT_POLLUTION_API_URL))
+        pass
 
     def airpollution_api_version(self):
         pass

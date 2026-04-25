@@ -26,13 +26,7 @@ class TileManager:
     """
 
     def __init__(self, API_key, map_layer, config):
-        assert API_key is not None, 'You must provide a valid API Key'
-        self.API_key = API_key
-        assert map_layer is not None, 'You must provide a valid map layer name'
-        assert isinstance(map_layer, str), 'Map layer name must be a string'
-        self.map_layer = map_layer
-        assert isinstance(config, dict)
-        self.http_client = HttpClient(API_key, config, ROOT_TILE_URL, admits_subdomains=False)
+        pass
 
     def get_tile(self, x, y, zoom):
         """

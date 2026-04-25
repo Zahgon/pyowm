@@ -14,8 +14,8 @@ def deprecated(will_be=None, on_version=None, name=None):
     __init__ methods so you can specify the deprecated class name)
     :return: callable
     """
+
     def outer_function(function):
-        pass
+        return function
 
     return outer_function
-

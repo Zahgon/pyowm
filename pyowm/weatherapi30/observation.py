@@ -28,11 +28,7 @@ class Observation:
     """
 
     def __init__(self, reception_time, location, weather):
-        if reception_time < 0:
-            raise ValueError("'reception_time' must be greater than 0")
-        self.rec_time = reception_time
-        self.location = location
-        self.weather = weather
+        pass
 
     def reception_time(self, timeformat='unix'):
         """
@@ -63,31 +59,7 @@ class Observation:
             data needed to build the result, *APIResponseError* if the input dict embeds an HTTP status error
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('JSON data is None')
-
-        # Check if server returned errors: this check overcomes the lack of use
-        # of HTTP error status codes by the OWM API 3.0. This mechanism is
-        # supposed to be deprecated as soon as the API fully adopts HTTP for
-        # conveying errors to the clients
-        if 'message' in the_dict and 'cod' in the_dict:
-            if the_dict['cod'] != "404":
-                raise exceptions.APIResponseError(
-                                      "OWM API: error - response payload", the_dict['cod'])
-            print("OWM API: observation data not available")
-            return None
-        try:
-            place = location.Location.from_dict(the_dict)
-        except KeyError:
-            raise exceptions.ParseAPIResponseError(
-                                      ''.join([__name__, ': impossible to read location info from JSON data']))
-        try:
-            w = weather.Weather.from_dict(the_dict)
-        except KeyError:
-            raise exceptions.ParseAPIResponseError(
-                                      ''.join([__name__, ': impossible to read weather info from JSON data']))
-        current_time = int(time.time())
-        return Observation(current_time, place, w)
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary
@@ -95,9 +67,7 @@ class Observation:
         :returns: a `dict`
 
         """
-        return {"reception_time": self.rec_time,
-                "location": self.location.to_dict(),
-                "weather": self.weather.to_dict()}
+        pass
 
     def __repr__(self):
         return "<%s.%s - reception_time=%s>" % (__name__, self.__class__.__name__,

@@ -21,9 +21,7 @@ def assert_is_lat(val):
     :raises: *ValueError* if value is out of latitude boundaries, *AssertionError* if type is wrong
 
     """
-    assert type(val) is float or type(val) is int, "Value must be a number"
-    if val < -90.0 or val > 90.0:
-        raise ValueError("Latitude value must be between -90 and 90")
+    pass
 
 
 def assert_is_lon(val):
@@ -36,9 +34,7 @@ def assert_is_lon(val):
     :raises: *ValueError* if value is out of longitude boundaries, *AssertionError* if type is wrong
 
     """
-    assert type(val) is float or type(val) is int, "Value must be a number"
-    if val < -180.0 or val > 180.0:
-        raise ValueError("Longitude value must be between -180 and 180")
+    pass
 
 
 # classes
@@ -54,14 +50,14 @@ class Geometry:
         RFC 7946 (https://tools.ietf.org/html/rfc7946)
         :return: str
         """
-        raise NotImplementedError()
+        pass
 
     def to_dict(self):
         """
         Returns a dict representation of this geotype
         :return: dict
         """
-        raise NotImplementedError()
+        pass
 
 
 class Point(Geometry):
@@ -77,9 +73,7 @@ class Point(Geometry):
 
     """
     def __init__(self, lon, lat):
-        assert_is_lon(lon)
-        assert_is_lat(lat)
-        self._geom = geojson.Point((lon, lat))
+        pass
 
     @property
     def lon(self):
@@ -106,10 +100,10 @@ class Point(Geometry):
         pass
 
     def geojson(self):
-        return geojson.dumps(self._geom)
+        pass
 
     def to_dict(self):
-        return json.loads(self.geojson())
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):
@@ -118,10 +112,7 @@ class Point(Geometry):
         :param the_dict: the geoJSON dict
         :return: `pyowm.utils.geo.Point` instance
         """
-        geom = geojson.loads(json.dumps(the_dict))
-        result = Point(0, 0)
-        result._geom = geom
-        return result
+        pass
 
     def __repr__(self):
         return "<%s.%s - lon=%s, lat=%s>" % (__name__, self.__class__.__name__, self.lon, self.lat)
@@ -137,12 +128,7 @@ class MultiPoint(Geometry):
 
     """
     def __init__(self, list_of_tuples):
-        if not list_of_tuples:
-            raise ValueError("A MultiPoint cannot be empty")
-        for t in list_of_tuples:
-            assert_is_lon(t[0])
-            assert_is_lat(t[1])
-        self._geom = geojson.MultiPoint(list_of_tuples)
+        pass
 
     @classmethod
     def from_points(cls, iterable_of_points):
@@ -171,10 +157,10 @@ class MultiPoint(Geometry):
         pass
 
     def geojson(self):
-        return geojson.dumps(self._geom)
+        pass
 
     def to_dict(self):
-        return json.loads(self.geojson())
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):
@@ -183,10 +169,7 @@ class MultiPoint(Geometry):
         :param the_dict: the geoJSON dict
         :return: `pyowm.utils.geo.MultiPoint` instance
         """
-        geom = geojson.loads(json.dumps(the_dict))
-        result = MultiPoint([(0, 0), (0, 0)])
-        result._geom = geom
-        return result
+        pass
 
 
 class Polygon(Geometry):
@@ -202,22 +185,13 @@ class Polygon(Geometry):
 
     """
     def __init__(self, list_of_lists):
-        for l in list_of_lists:
-            for t in l:
-                assert_is_lon(t[0])
-                assert_is_lat(t[1])
-        if not list_of_lists:
-            raise ValueError("A Polygon cannot be empty")
-        first, last = list_of_lists[0][0], list_of_lists[0][-1]
-        if first != last:
-            raise ValueError("The start and end point of Polygon must coincide")
-        self._geom = geojson.Polygon(list_of_lists)
+        pass
 
     def geojson(self):
-        return geojson.dumps(self._geom)
+        pass
 
     def to_dict(self):
-        return json.loads(self.geojson())
+        pass
 
     @property
     def points(self):
@@ -234,10 +208,7 @@ class Polygon(Geometry):
         :param the_dict: the geoJSON dict
         :return: `pyowm.utils.geo.Polygon` instance
         """
-        geom = geojson.loads(json.dumps(the_dict))
-        result = Polygon([[[0, 0], [0, 0]]])
-        result._geom = geom
-        return result
+        pass
 
     @classmethod
     def from_points(cls, list_of_lists):
@@ -265,17 +236,13 @@ class MultiPolygon(Geometry):
 
     """
     def __init__(self, iterable_of_list_of_lists):
-        if not iterable_of_list_of_lists:
-            raise ValueError("A MultiPolygon cannot be empty")
-        for list_of_lists in iterable_of_list_of_lists:
-            Polygon(list_of_lists)
-        self._geom = geojson.MultiPolygon(iterable_of_list_of_lists)
+        pass
 
     def geojson(self):
-        return geojson.dumps(self._geom)
+        pass
 
     def to_dict(self):
-        return json.loads(self.geojson())
+        pass
 
     @classmethod
     def from_dict(cls, the_dict):
@@ -284,13 +251,7 @@ class MultiPolygon(Geometry):
         :param the_dict: the geoJSON dict
         :return: `pyowm.utils.geo.MultiPolygon` instance
         """
-        geom = geojson.loads(json.dumps(the_dict))
-        result = MultiPolygon([
-            [[[0, 0], [0, 0]]],
-            [[[1, 1], [1, 1]]]
-        ])
-        result._geom = geom
-        return result
+        pass
 
     @classmethod
     def from_polygons(cls, iterable_of_polygons):
@@ -314,15 +275,4 @@ class GeometryBuilder:
         :return: a `pyowm.utils.geo.Geometry` subtype instance
         :raises `ValueError` if unable to the geometry type cannot be recognized
         """
-        assert isinstance(the_dict, dict), 'Geometry must be a dict'
-        geom_type = the_dict.get('type', None)
-        if geom_type == 'Point':
-            return Point.from_dict(the_dict)
-        elif geom_type == 'MultiPoint':
-            return MultiPoint.from_dict(the_dict)
-        elif geom_type == 'Polygon':
-            return Polygon.from_dict(the_dict)
-        elif geom_type == 'MultiPolygon':
-            return MultiPolygon.from_dict(the_dict)
-        else:
-            raise ValueError('Unable to build a GeoType object: unrecognized geometry type')
+        pass

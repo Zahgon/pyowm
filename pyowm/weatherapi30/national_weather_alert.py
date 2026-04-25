@@ -30,21 +30,7 @@ class NationalWeatherAlert:
     :raises: *ValueError* if any parameter has wrong type
     """
     def __init__(self, sender, title, description, start_time, end_time, tags=None):
-        assert title, 'Event title must be specified'
-        assert start_time, 'Event start time must be specified'
-        assert end_time, 'Event end time must be specified'
-
-        self.sender = sender
-        self.title = title
-        self.description = description
-        self.start = start_time
-        self.end = end_time
-        if tags is None:
-            self.tags = []
-        else:
-            if not isinstance(tags, list):
-                raise ValueError('If provided, event tags must be a list of strings')
-            self.tags = tags
+        pass
 
     def start_time(self, timeformat='unix'):
         """
@@ -88,31 +74,14 @@ class NationalWeatherAlert:
         :raises: *ParseAPIResponseError* if it is impossible to find or parse the data needed to build the result
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-
-        try:
-            sender = the_dict['sender_name']
-            title = the_dict['event']
-            description = the_dict['description']
-            start_time = the_dict['start']
-            end_time = the_dict['end']
-        except KeyError:
-            raise exceptions.ParseAPIResponseError('Invalid data payload')
-        tags = the_dict.get('tags', [])
-        return NationalWeatherAlert(sender, title, description, start_time, end_time, tags)
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary
 
         :returns: a `dict`
         """
-        return {'sender_name': self.sender,
-                'event': self.title,
-                'start': self.start,
-                'end': self.end,
-                'description': self.description,
-                'tags': self.tags }
+        pass
 
     def __repr__(self):
         return "<%s.%s - sender=%s, title=%s, start=%s, end=%s>" % (

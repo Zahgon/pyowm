@@ -28,20 +28,9 @@ class AirStatus:
     """
 
     def __init__(self, reference_time, location, air_quality_data, reception_time):
-        if reference_time < 0:
-            raise ValueError("'reference_time' must be greater than 0")
-        self.ref_time = reference_time
-        self.location = location
-        if not isinstance(air_quality_data, dict):
-            raise ValueError("'air_quality_data' must be a list")
-        self.air_quality_data = air_quality_data
-        for key, val in air_quality_data.items():
-            setattr(self, key, val)
-        if reception_time < 0:
-            raise ValueError("'reception_time' must be greater than 0")
-        self.rec_time = reception_time
+        pass
 
-    def reference_time(self, timeformat='unix'):
+    def reference_time(self, timeformat="unix"):
         """
         Returns the GMT time telling when the air quality data have been measured
 
@@ -54,9 +43,9 @@ class AirStatus:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.ref_time, timeformat)
+        pass
 
-    def reception_time(self, timeformat='unix'):
+    def reception_time(self, timeformat="unix"):
         """
         Returns the GMT time telling when the air quality data has been received
         from the OWM Weather API
@@ -72,7 +61,6 @@ class AirStatus:
         """
         pass
 
-
     @classmethod
     def from_dict(cls, the_dict):
         """
@@ -84,55 +72,4 @@ class AirStatus:
         :raises: *ParseAPIResponseError* if it is impossible to find or parse the data needed to build the result
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-        try:
-            # -- location
-            lon = float(the_dict['coord']['lon'])
-            lat = float(the_dict['coord']['lat'])
-            place = location.Location(None, lon, lat, None)
-
-            # -- reception time (now)
-            rcp_time = timestamps.now('unix')
-
-            def build_air_status(item_dict, location, reception_time):
-                # -- reference time (strip away Z and T on ISO8601 format)
-                reference_time = item_dict['dt']
-
-                # -- air quality data
-                data = item_dict['components']
-                data['aqi'] = item_dict['main']['aqi']
-
-                return AirStatus(reference_time, location, data, reception_time)
-
-            items = the_dict['list']
-
-            # one datapoint
-            if len(items) == 1:
-                return build_air_status(items[0], place, rcp_time)
-            # multiple datapoints
-            else:
-                return [build_air_status(item, place, rcp_time) for item in items]
-
-        except KeyError:
-            raise exceptions.ParseAPIResponseError(
-                      ''.join([__name__, ': impossible to parse AirStatus']))
-
-    def to_dict(self):
-        """Dumps object to a dictionary
-
-        :returns: a `dict`
-
-        """
-        return {"reference_time": self.ref_time,
-                "location": self.location.to_dict(),
-                "air_quality_data": self.air_quality_data,
-                "reception_time": self.rec_time}
-
-    def __repr__(self):
-        return "<%s.%s - reference time=%s, reception time=%s, location=%s" % (
-                    __name__,
-                    self.__class__.__name__,
-                    self.reference_time('iso'),
-                    self.reception_time('iso'),
-                    str(self.location))
+        pass

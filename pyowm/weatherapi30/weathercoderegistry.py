@@ -75,8 +75,7 @@ class WeatherCodeRegistry:
     """
 
     def __init__(self, code_ranges_dict):
-        assert isinstance(code_ranges_dict, dict)
-        self._code_ranges_dict = code_ranges_dict
+        pass
 
     def status_for(self, code):
         """
@@ -87,12 +86,7 @@ class WeatherCodeRegistry:
         :type code: int
         :returns: the weather status str or ``None`` if the code is not mapped
         """
-        is_in = lambda start, end, n: start <= n <= end
-        for status in self._code_ranges_dict:
-            for _range in self._code_ranges_dict[status]:
-                if is_in(_range['start'],_range['end'],code):
-                    return status
-        return None
+        pass
 
     @classmethod
     def get_instance(cls):
@@ -100,7 +94,7 @@ class WeatherCodeRegistry:
         Factory method returning the default weather code registry
         :return: a `WeatherCodeRegistry` instance
         """
-        return WeatherCodeRegistry(WEATHER_CODES_INTERVALS)
+        pass
 
     def __repr__(self):
         return "<%s.%s>" % (__name__, self.__class__.__name__)

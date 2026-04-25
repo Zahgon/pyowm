@@ -60,10 +60,7 @@ class JSONPersistenceBackend(PersistenceBackend):
     _station_id = None
 
     def __init__(self, json_file_path, station_id):
-        assert json_file_path is not None
-        self._station_id = station_id
-        assert os.path.isfile(json_file_path)
-        self._file_path = json_file_path
+        pass
 
     def load_to_buffer(self):
         pass

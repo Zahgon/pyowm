@@ -28,13 +28,7 @@ class OWM:
     :type config: dict
     """
     def __init__(self, api_key, config=None):
-        assert api_key is not None, 'API Key must be set'
-        self.api_key = api_key
-        if config is None:
-            self.config = cfg.get_default_config()
-        else:
-            assert isinstance(config, dict)
-            self.config = config
+        pass
 
     @property
     def configuration(self):
@@ -72,7 +66,7 @@ class OWM:
         Agricultural API.
         :return: a `pyowm.agro10.agro_manager.AgroManager` instance
         """
-        return agro_manager.AgroManager(self.api_key, self.config)
+        pass
 
     def airpollution_manager(self):
         """
@@ -80,14 +74,14 @@ class OWM:
         pollution data.
         :return: a `pyowm.airpollutionapi30.airpollution_manager.AirPollutionManager` instance
         """
-        return airpollution_manager.AirPollutionManager(self.api_key, self.config)
+        pass
 
     def alert_manager(self):
         """
         Gives an *AlertManager* instance that can be used to read/write weather triggers and alerts data.
         :return: an *AlertManager* instance
         """
-        return alert_manager.AlertManager(self.api_key, self.config)
+        pass
 
     def city_id_registry(self):
         """
@@ -103,7 +97,7 @@ class OWM:
         meteostations data.
         :returns: a *StationsManager* instance
         """
-        return stations_manager.StationsManager(self.api_key, self.config)
+        pass
 
     def tile_manager(self, layer_name):
         """
@@ -111,14 +105,14 @@ class OWM:
         :param layer_name: the layer name for the tiles (values can be looked up on `pyowm.tiles.enums.MapLayerEnum`)
         :return: a `pyowm.tiles.tile_manager.TileManager` instance
         """
-        return tile_manager.TileManager(self.api_key, layer_name, self.config)
+        pass
 
     def uvindex_manager(self):
         """
         Gives a `pyowm.uvindexapi30.uvindex_manager.UVIndexManager` instance that can be used to fetch UV data.
         :return: a `pyowm.uvindexapi30.uvindex_manager.UVIndexManager` instance
         """
-        return uvindex_manager.UVIndexManager(self.api_key, self.config)
+        pass
 
     def weather_manager(self):
         """
@@ -126,7 +120,7 @@ class OWM:
         pollution data.
         :return: a `pyowm.weatherapi30.weather_manager.WeatherManager` instance
         """
-        return weather_manager.WeatherManager(self.api_key, self.config)
+        pass
 
     def geocoding_manager(self):
         """
@@ -134,7 +128,7 @@ class OWM:
         and reverse geocoding
         :return: a `pyowm.geocoding10.geocoding_manager.GeocodingManager` instance
         """
-        return geocoding_manager.GeocodingManager(self.api_key, self.config)
+        pass
 
     def __repr__(self):
         return "<%s.%s - API key=%s, subscription type=%s, PyOWM version=%s>" % \

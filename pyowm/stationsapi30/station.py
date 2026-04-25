@@ -34,34 +34,7 @@ class Station:
 
     def __init__(self, id, created_at, updated_at, external_id, name,
                  lon, lat, alt, rank):
-        assert id is not None
-        assert external_id is not None
-        assert lon is not None
-        assert lat is not None
-        if lon < -180.0 or lon > 180.0:
-            raise ValueError("'lon' value must be between -180 and 180")
-        self._lon = float(lon)
-        if lat < -90.0 or lat > 90.0:
-            raise ValueError("'lat' value must be between -90 and 90")
-        if alt is not None and alt < 0.0:
-            raise ValueError("'alt' value must not be negative")
-        self.id = id
-        self.created_at = created_at
-        if self.created_at is not None:
-            padded_created_at = self._format_micros(created_at)
-            t = dt.fromisoformat(padded_created_at.replace("Z", "+00:00"))
-            self.created_at = formatting.timeformat(t, 'unix')
-        self.updated_at = updated_at
-        if self.updated_at is not None:
-            padded_updated_at = self._format_micros(updated_at)
-            t = dt.fromisoformat(padded_updated_at.replace("Z", "+00:00"))
-            self.updated_at = formatting.timeformat(t, 'unix')
-        self.external_id = external_id
-        self.name = name
-        self.lon = lon
-        self.lat = lat
-        self.alt = alt
-        self.rank = rank
+        pass
 
     def _format_micros(self, datestring):
         pass
@@ -106,18 +79,7 @@ class Station:
         :raises: *ParseAPIResponseError* if it is impossible to find or parse the data needed to build the result
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-        id = the_dict.get('ID', None) or the_dict.get('id', None)
-        external_id = the_dict.get('external_id', None)
-        lon = the_dict.get('longitude', None)
-        lat = the_dict.get('latitude', None)
-        alt = the_dict.get('altitude', None)
-        name = the_dict.get('name', None)
-        rank = the_dict.get('rank', None)
-        created_at = the_dict.get('created_at', None)
-        updated_at = the_dict.get('updated_at', None)
-        return Station(id, created_at, updated_at, external_id, name, lon, lat, alt, rank)
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary
@@ -125,16 +87,7 @@ class Station:
         :returns: a `dict`
 
         """
-        return {
-            'id': self.id,
-            'external_id': self.external_id,
-            'name': self.name,
-            'created_at': formatting.to_ISO8601(self.created_at),
-            'updated_at': formatting.to_ISO8601(self.updated_at),
-            'latitude': self.lat,
-            'longitude': self.lon,
-            'altitude': self.alt if self.alt is not None else 'None',
-            'rank': self.rank}
+        pass
 
     def __repr__(self):
         return '<%s.%s - id=%s, external_id=%s, name=%s>' \

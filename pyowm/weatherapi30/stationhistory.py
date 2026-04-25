@@ -29,12 +29,7 @@ class StationHistory:
     """
 
     def __init__(self, station_id, interval, reception_time, measurements):
-        self.station_id = station_id
-        self.interval = interval
-        if reception_time < 0:
-            raise ValueError("'reception_time' must be greater than 0")
-        self.rec_time = reception_time
-        self.measurements = measurements
+        pass
 
     def reception_time(self, timeformat='unix'):
         """Returns the GMT time telling when the meteostation history data was
@@ -64,60 +59,7 @@ class StationHistory:
             data needed to build the result, *APIResponseError* if the input dict embeds an HTTP status error
 
         """
-        if d is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-        # Check if server returned errors: this check overcomes the lack of use
-        # of HTTP error status codes by the OWM API but it's supposed to be
-        # deprecated as soon as the API implements a correct HTTP mechanism for
-        # communicating errors to the clients. In addition, in this specific
-        # case the OWM API responses are the very same either when no results
-        # are found for a station and when the station does not exist!
-        measurements = {}
-        try:
-            if 'cod' in d and d['cod'] != "200":
-                raise exceptions.APIResponseError(
-                                          "OWM API: error - response payload: " + str(d), d['cod'])
-            if str(d['cnt']) == "0":
-                return None
-            else:
-                for item in d['list']:
-                    if 'temp' not in item:
-                        temp = None
-                    elif isinstance(item['temp'], dict):
-                        temp = item['temp']['v']
-                    else:
-                        temp = item['temp']
-                    if 'humidity' not in item:
-                        hum = None
-                    elif isinstance(item['humidity'], dict):
-                        hum = item['humidity']['v']
-                    else:
-                        hum = item['humidity']
-                    if 'pressure' not in item:
-                        pres = None
-                    elif isinstance(item['pressure'], dict):
-                        pres = item['pressure']['v']
-                    else:
-                        pres = item['pressure']
-                    if 'rain' in item and isinstance(item['rain']['today'],
-                                                     dict):
-                        rain = item['rain']['today']['v']
-                    else:
-                        rain = None
-                    if 'wind' in item and isinstance(item['wind']['speed'],
-                                                     dict):
-                        wind = item['wind']['speed']['v']
-                    else:
-                        wind = None
-                    measurements[item['dt']] = {"temperature": temp,
-                                                "humidity": hum,
-                                                "pressure": pres,
-                                                "rain": rain,
-                                                "wind": wind}
-        except KeyError:
-            raise exceptions.ParseAPIResponseError(__name__ + ': impossible to read input data')
-        current_time = int(time.time())
-        return StationHistory(None, None, current_time, measurements)
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary
@@ -125,10 +67,7 @@ class StationHistory:
         :returns: a `dict`
 
         """
-        return {"station_ID": self.station_id,
-                "interval": self.interval,
-                "reception_time": self.rec_time,
-                "measurements": self.measurements}
+        pass
 
     def __repr__(self):
         return "<%s.%s - station_id=%s, interval=%s>" % (__name__, self.__class__.__name__, self.station_id, self.interval)

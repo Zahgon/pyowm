@@ -23,11 +23,7 @@ class UVIndexManager:
     """
 
     def __init__(self, API_key, config):
-        assert API_key is not None, 'You must provide a valid API Key'
-        self.API_key = API_key
-        assert isinstance(config, dict)
-        self.uv_client = uv_client.UltraVioletHttpClient(
-            API_key, HttpClient(API_key, config, ROOT_UV_API_URL))
+        pass
 
     def uvindex_api_version(self):
         pass

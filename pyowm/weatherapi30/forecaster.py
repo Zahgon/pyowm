@@ -223,11 +223,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        time_value = formatting.to_UNIXtime(timeobject)
-        closest_weather = weather.find_closest_weather(
-                                        self.forecast.weathers,
-                                        time_value)
-        return weather.status_is(closest_weather, weather_condition, self._wc_registry)
+        pass
 
     def will_be_rainy_at(self, timeobject):
         """
@@ -257,7 +253,7 @@ class Forecaster:
         :returns: boolean
 
         """
-        return self._will_be(timeobject, "sun")
+        pass
 
     def will_be_snowy_at(self, timeobject):
         """

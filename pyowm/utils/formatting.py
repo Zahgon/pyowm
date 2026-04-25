@@ -36,14 +36,7 @@ def timeformat(timeobject, timeformat):
     :raises: ValueError when unknown timeformat switches are provided or
         when negative time values are provided
     """
-    if timeformat == "unix":
-        return to_UNIXtime(timeobject)
-    elif timeformat == "iso":
-        return to_ISO8601(timeobject)
-    elif timeformat == "date":
-        return to_date(timeobject)
-    else:
-        raise ValueError("Invalid value for timeformat parameter")
+    pass
 
 
 def to_date(timeobject):
@@ -60,18 +53,7 @@ def to_date(timeobject):
     :raises: *TypeError* when bad argument types are provided, *ValueError*
         when negative UNIXtimes are provided
     """
-    if isinstance(timeobject, int):
-        if timeobject < 0:
-            raise ValueError("The time value is a negative number")
-        return datetime.fromtimestamp(timeobject, tz=timezone.utc)
-    elif isinstance(timeobject, datetime):
-        return timeobject.replace(microsecond=0)
-    elif isinstance(timeobject, str):
-        return datetime.fromisoformat(timeobject)
-    else:
-        raise TypeError('The time value must be expressed either by an int ' \
-                         'UNIX time, a datetime.datetime object or an ' \
-                         'ISO8601-formatted string')
+    pass
 
 
 def to_ISO8601(timeobject):
@@ -89,18 +71,7 @@ def to_ISO8601(timeobject):
     :raises: *TypeError* when bad argument types are provided, *ValueError*
         when negative UNIXtimes are provided
     """
-    if isinstance(timeobject, int):
-        if timeobject < 0:
-            raise ValueError("The time value is a negative number")
-        return datetime.fromtimestamp(timeobject, tz=timezone.utc).isoformat(' ', 'seconds')
-    elif isinstance(timeobject, datetime):
-        return timeobject.isoformat(' ', 'seconds')
-    elif isinstance(timeobject, str):
-        return timeobject
-    else:
-        raise TypeError('The time value must be expressed either by an int ' \
-                         'UNIX time, a datetime.datetime object or an ' \
-                         'ISO8601-formatted string')
+    pass
 
 
 def to_UNIXtime(timeobject):
@@ -117,18 +88,7 @@ def to_UNIXtime(timeobject):
     :raises: *TypeError* when bad argument types are provided, *ValueError*
         when negative UNIXtimes are provided
     """
-    if isinstance(timeobject, int):
-        if timeobject < 0:
-            raise ValueError("The time value is a negative number")
-        return timeobject
-    elif isinstance(timeobject, datetime):
-        return datetime_to_UNIXtime(timeobject)
-    elif isinstance(timeobject, str):
-        return ISO8601_to_UNIXtime(timeobject)
-    else:
-        raise TypeError('The time value must be expressed either by an int ' \
-                         'UNIX time, a datetime.datetime object or an ' \
-                         'ISO8601-formatted string')
+    pass
 
 
 def ISO8601_to_UNIXtime(iso):
@@ -143,12 +103,7 @@ def ISO8601_to_UNIXtime(iso):
         when the ISO8601 string is badly formatted
 
     """
-    try:
-        d = datetime.fromisoformat(iso)
-    except ValueError:
-        raise ValueError(__name__ + ": bad format for input ISO8601 string, ' \
-                'should have been: YYYY-MM-DD HH:MM:SS+00:00")
-    return datetime_to_UNIXtime(d)
+    pass
 
 
 def datetime_to_UNIXtime(date):
@@ -160,4 +115,4 @@ def datetime_to_UNIXtime(date):
     :returns: an int UNIXtime
     :raises: *TypeError* when bad argument types are provided
     """
-    return int(date.timestamp())
+    pass

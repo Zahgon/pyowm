@@ -24,23 +24,7 @@ class Soil:
     """
 
     def __init__(self, reference_time, surface_temp, ten_cm_temp, moisture, polygon_id=None):
-        assert reference_time is not None
-        assert isinstance(reference_time, int), 'reference time must be a UNIX int timestamp'
-        if reference_time < 0:
-            raise ValueError("reference_time must be greater than 0")
-        self._reference_time = reference_time
-        assert surface_temp is not None
-        assert isinstance(surface_temp, (float, int)), 'surface_temp must be a number'
-        self._surface_temp = surface_temp
-        assert ten_cm_temp is not None
-        assert isinstance(ten_cm_temp, (float, int)), 'ten_cm_temp must be a number'
-        self._ten_cm_temp = ten_cm_temp
-        assert moisture is not None
-        assert isinstance(moisture, (float, int)), 'moisture must be a number'
-        if moisture < 0.:
-            raise ValueError("moisture must be greater than 0")
-        self.moisture = moisture
-        self.polygon_id = polygon_id
+        pass
 
     def reference_time(self, timeformat='unix'):
         """Returns the UTC time telling when the soil data was measured
@@ -53,7 +37,7 @@ class Soil:
         :returns: an int or a str
 
         """
-        return formatting.timeformat(self._reference_time, timeformat)
+        pass
 
     def surface_temp(self, unit='kelvin'):
         """Returns the soil surface temperature
@@ -81,20 +65,10 @@ class Soil:
 
     @classmethod
     def from_dict(cls, the_dict):
-        assert isinstance(the_dict, dict)
-        reference_time = the_dict['reference_time']
-        surface_temp = the_dict['surface_temp']
-        ten_cm_temp = the_dict['ten_cm_temp']
-        moisture = the_dict['moisture']
-        polygon_id = the_dict.get('polygon_id', None)
-        return Soil(reference_time, surface_temp, ten_cm_temp, moisture, polygon_id)
+        pass
 
     def to_dict(self):
-        return {'reference_time': self._reference_time,
-                'surface_temp': self._surface_temp,
-                'ten_cm_temp': self._ten_cm_temp,
-                'moisture': self.moisture,
-                'polygon_id': self.polygon_id}
+        pass
 
     def __repr__(self):
         return "<%s.%s - polygon_id=%s,reference time=%s,>" % (__name__, self.__class__.__name__,

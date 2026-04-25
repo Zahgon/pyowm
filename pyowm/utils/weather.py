@@ -19,9 +19,7 @@ def status_is(weather, status, weather_code_registry):
     :returns: ``True`` if the check is positive, ``False`` otherwise
 
     """
-    weather_status = weather_code_registry. \
-        status_for(weather.weather_code).lower()
-    return weather_status == status
+    pass
 
 
 def any_status_is(weather_list, status, weather_code_registry):
@@ -74,12 +72,7 @@ def is_in_coverage(unixtime, weathers_list):
     :returns: ``True`` if the UNIX time is contained into the time range,
         ``False`` otherwise
     """
-    if not weathers_list:
-        return False
-    min_of_coverage = min(weather.reference_time() for weather in weathers_list)
-    max_of_coverage = max([weather.reference_time() \
-                           for weather in weathers_list])
-    return unixtime >= min_of_coverage and unixtime <= max_of_coverage
+    pass
 
 
 def find_closest_weather(weathers_list, unixtime):
@@ -94,15 +87,4 @@ def find_closest_weather(weathers_list, unixtime):
     :returns: the *Weather* object which is closest in time or ``None`` if the
         list is empty
     """
-    if not weathers_list:
-        return None
-    if not is_in_coverage(unixtime, weathers_list):
-        raise exceptions.NotFoundError('Error: the specified time is ' + \
-                                'not included in the weather coverage range')
-    closest_weather = weathers_list[0]
-    time_distance = abs(closest_weather.reference_time() - unixtime)
-    for weather in weathers_list:
-        if abs(weather.reference_time() - unixtime) < time_distance:
-            time_distance = abs(weather.reference_time() - unixtime)
-            closest_weather = weather
-    return closest_weather
+    pass

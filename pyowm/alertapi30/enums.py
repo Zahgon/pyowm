@@ -23,14 +23,7 @@ class WeatherParametersEnum:
         :return: list of str
 
         """
-        return [
-            cls.TEMPERATURE,
-            cls.PRESSURE,
-            cls.HUMIDITY,
-            cls.WIND_SPEED,
-            cls.WIND_DIRECTION,
-            cls.CLOUDS
-        ]
+        pass
 
 
 class OperatorsEnum:
@@ -52,14 +45,7 @@ class OperatorsEnum:
         :return: list of str
 
         """
-        return [
-            cls.GREATER_THAN,
-            cls.GREATER_THAN_EQUAL,
-            cls.LESS_THAN,
-            cls.LESS_THAN_EQUAL,
-            cls.EQUAL,
-            cls.NOT_EQUAL
-        ]
+        pass
 
 
 class AlertChannelsEnum:
@@ -76,6 +62,4 @@ class AlertChannelsEnum:
         :return: list of str
 
         """
-        return [
-            cls.OWM_API_POLLING
-        ]
+        pass

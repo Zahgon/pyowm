@@ -18,7 +18,7 @@ def now(timeformat='date'):
     :raises: ValueError when unknown timeformat switches are provided or
         when negative time values are provided
     """
-    return formatting.timeformat(datetime.now(timezone.utc), timeformat)
+    pass
 
 
 def next_hour(date=None):
@@ -92,14 +92,7 @@ def tomorrow(hour=None, minute=None):
     :raises: *ValueError* when hour or minute have bad values
 
     """
-    now = datetime.now(timezone.utc)
-    if hour is None:
-        hour = now.hour
-    if minute is None:
-        minute = now.minute
-    tomorrow_date = now.date() + timedelta(days=1)
-    return datetime(tomorrow_date.year, tomorrow_date.month, tomorrow_date.day,
-                    hour, minute, 0, 0, timezone.utc)
+    pass
 
 
 def yesterday(hour=None, minute=None):

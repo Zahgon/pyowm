@@ -32,17 +32,7 @@ class COIndex:
 
     def __init__(self, reference_time, location, interval, co_samples,
                  reception_time):
-        if reference_time < 0:
-            raise ValueError("'reference_time' must be greater than 0")
-        self.ref_time = reference_time
-        self.location = location
-        self.interval = interval
-        if not isinstance(co_samples, list):
-            raise ValueError("'co_samples' must be a list")
-        self.co_samples = sorted(co_samples, key=lambda k: k['value'], reverse=True)
-        if reception_time < 0:
-            raise ValueError("'reception_time' must be greater than 0")
-        self.rec_time = reception_time
+        pass
 
     def reference_time(self, timeformat='unix'):
         """
@@ -57,7 +47,7 @@ class COIndex:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.ref_time, timeformat)
+        pass
 
     def reception_time(self, timeformat='unix'):
         """
@@ -109,29 +99,7 @@ class COIndex:
         :raises: *ParseAPIResponseError* if it is impossible to find or parse the data needed to build the result
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-        try:
-            # -- reference time (strip away Z and T on ISO8601 format)
-            t = the_dict['time'].replace('Z', '+00:00').replace('T', ' ')
-            reference_time = formatting.ISO8601_to_UNIXtime(t)
-
-            # -- reception time (now)
-            reception_time = timestamps.now('unix')
-
-            # -- location
-            lon = float(the_dict['location']['longitude'])
-            lat = float(the_dict['location']['latitude'])
-            place = location.Location(None, lon, lat, None)
-
-            # -- CO samples
-            co_samples = the_dict['data']
-
-        except KeyError:
-            raise exceptions.ParseAPIResponseError(
-                      ''.join([__name__, ': impossible to parse COIndex']))
-
-        return COIndex(reference_time, place, None, co_samples, reception_time)
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary
@@ -139,11 +107,7 @@ class COIndex:
         :returns: a `dict`
 
         """
-        return {"reference_time": self.ref_time,
-                "location": self.location.to_dict(),
-                "interval": self.interval,
-                "co_samples": self.co_samples,
-                "reception_time": self.rec_time}
+        pass
 
     def __repr__(self):
         return "<%s.%s - reference time=%s, reception time=%s, location=%s, " \

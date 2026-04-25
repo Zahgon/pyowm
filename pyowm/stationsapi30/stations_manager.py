@@ -25,10 +25,7 @@ class StationsManager:
     """
 
     def __init__(self, API_key, config):
-        assert API_key is not None, 'You must provide a valid API Key'
-        self.API_key = API_key
-        assert isinstance(config, dict)
-        self.http_client = HttpClient(API_key, config, ROOT_STATIONS_API_URL)
+        pass
 
     def stations_api_version(self):
         pass

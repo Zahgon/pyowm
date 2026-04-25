@@ -32,16 +32,7 @@ class UVIndex:
     """
 
     def __init__(self, reference_time, location, value, reception_time):
-        if reference_time < 0:
-            raise ValueError("'referencetime' must be greater than 0")
-        self.ref_time = reference_time
-        self.location = location
-        if value < 0.0:
-            raise ValueError("'UV intensity must be greater than 0")
-        self.value = value
-        if reception_time < 0:
-            raise ValueError("'reception_time' must be greater than 0")
-        self.rec_time = reception_time
+        pass
 
     def reference_time(self, timeformat='unix'):
         """
@@ -57,7 +48,7 @@ class UVIndex:
         :raises: ValueError when negative values are provided
 
         """
-        return formatting.timeformat(self.ref_time, timeformat)
+        pass
 
     def reception_time(self, timeformat='unix'):
         """
@@ -95,25 +86,7 @@ class UVIndex:
             data needed to build the result, *APIResponseError* if the input dict embeds an HTTP status error
 
         """
-        if the_dict is None:
-            raise exceptions.ParseAPIResponseError('Data is None')
-        try:
-            # -- reference time
-            reference_time = the_dict['date']
-
-            # -- reception time (now)
-            reception_time = timestamps.now('unix')
-
-            # -- location
-            lon = float(the_dict['lon'])
-            lat = float(the_dict['lat'])
-            place = location.Location(None, lon, lat, None)
-
-            # -- UV intensity
-            uv_intensity = float(the_dict['value'])
-        except KeyError:
-            raise exceptions.ParseAPIResponseError(''.join([__name__, ': impossible to parse UV Index']))
-        return UVIndex(reference_time, place, uv_intensity, reception_time)
+        pass
 
     def to_dict(self):
         """Dumps object to a dictionary
@@ -121,10 +94,7 @@ class UVIndex:
         :returns: a `dict`
 
         """
-        return {"reference_time": self.ref_time,
-                "location": self.location.to_dict(),
-                "value": self.value,
-                "reception_time": self.rec_time}
+        pass
 
     def __repr__(self):
         return "<%s.%s - reference time=%s, reception time=%s, location=%s, " \

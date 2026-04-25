@@ -21,12 +21,7 @@ class PresetEnum:
         :return: list of str
 
         """
-        return [
-            cls.TRUE_COLOR,
-            cls.FALSE_COLOR,
-            cls.NDVI,
-            cls.EVI
-        ]
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)
@@ -47,10 +42,7 @@ class SatelliteEnum:
         :return: list of str
 
         """
-        return [
-            cls.LANDSAT_8,
-            cls.SENTINEL_2
-        ]
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)
@@ -73,12 +65,7 @@ class PaletteEnum:
         :return: list of str
 
         """
-        return [
-            cls.GREEN,
-            cls.BLACK_AND_WHITE,
-            cls.CONTRAST_SHIFTED,
-            cls.CONTRAST_CONTINUOUS
-        ]
+        pass
 
     def __repr__(self):
         return '<%s.%s>' % (__name__, self.__class__.__name__)
